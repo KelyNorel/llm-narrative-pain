@@ -32,9 +32,8 @@ import litellm
 MODEL_ID = "meta-llama/llama-3-405b-instruct"
 LITELLM_MODEL_ID = f"watsonx_text/{MODEL_ID}"
 
-# temperature=0: deterministic scoring, matching the paper. See
-# Code/rebuttal/ for the empirical characterization of residual
-# variability that remains even at temperature=0.
+# temperature=0 reduces, but does not eliminate, output variance
+# (residual variability from GPU-batch floating-point non-associativity).
 PARAMETERS = {
     "max_tokens": 4095,
     "temperature": 0,
