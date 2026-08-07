@@ -19,10 +19,10 @@ The repo is organized by pipeline stage, matching the folders under `Code/`:
 ```bash
 pyenv virtualenv 3.11 clbp_mdd
 pyenv activate clbp_mdd
-pip install jupyterlab
+pip install -r requirements.txt
 ```
 
-Each `Code/<stage>/` folder has its own `requirements.txt`, added as that stage is documented here.
+All stages share one virtualenv, so dependencies live in a single `requirements.txt` at the repo root, extended as each stage is documented here.
 
 Paths are never hardcoded. `Code/config.py` resolves the project root from its own location on disk; every script imports its paths from there. Set the `PAIN_PROJECT_ROOT` environment variable to override it (e.g. to keep `Data/` on an external drive while the code stays in the repo).
 
@@ -48,7 +48,6 @@ Run both from `run_preprocessing.ipynb`, or directly:
 
 ```bash
 cd Code/preprocessing
-pip install -r requirements.txt
 python audio_preprocessing.py
 python transcribe.py
 ```
@@ -56,3 +55,9 @@ python transcribe.py
 **System dependency:** [`ffmpeg`](https://ffmpeg.org/) must be installed and on `PATH` (used by both `pydub` and Whisper). On macOS: `brew install ffmpeg`.
 
 Note: this consolidates the original exploratory notebooks (`whisper.ipynb`, `cut_pauses_run.ipynb`) into reusable functions with the same parameters (Whisper `base`, `condition_on_previous_text=False`, `hallucination_silence_threshold=2`; silence threshold -50 dB / 5000 ms). The originals also included one-off cells for specific subjects/cohorts and a manual Whisper weight-caching step, which are dropped here in favor of Whisper's own model cache (`~/.cache/whisper`).
+
+---
+
+**Author:** Raquel (Kely) Norel, PhD
+**Domain:** Computational Psychiatry / NLP / LLM-Based Clinical Assessment
+**Status:** 🚧 In progress. Preprocessing (audio cleanup + Whisper transcription) is done and reproducible from raw recordings. Remaining: `Code/analysis/` (LLM scoring via IBM watsonx + statistical analyses) and `Code/rebuttal/`.
