@@ -9,7 +9,7 @@ The repo is organized by pipeline stage, matching the folders under `Code/`:
 | Folder | Purpose |
 |---|---|
 | `Code/preprocessing/` | Audio cleanup + transcription (interview recordings -> text) |
-| `Code/analysis/` | LLM-based scoring + all statistical analyses reported in the paper (including analyses added during peer review) |
+| `Code/analysis/` | LLM-based scoring + all statistical analyses reported in the paper |
 
 `Data/`, `Results/`, and `Figures/` mirror these stages as the corresponding code is added.
 
@@ -95,4 +95,4 @@ python fig2_llm_ratings_by_cohort.py
 
 **Author:** Raquel (Kely) Norel, PhD
 **Domain:** Computational Psychiatry / NLP / LLM-Based Clinical Assessment
-**Status:** 🚧 In progress. Preprocessing, the LLM-scoring pipeline (transcript splitting + 9-metric scoring + word counts), precomputed LLM scores for all 131 subjects, and Fig. 2 (LLM ratings by cohort) are in place. Remaining: statistical analyses (Kruskal-Wallis, Spearman/FDR, Graphical Lasso, classification), Reddit external validation, and the 100-run determinism check (SD/CV/ICC1) added during peer review.
+**Status:** 🚧 In progress. Preprocessing, the LLM-scoring pipeline (transcript splitting + 9-metric scoring + word counts), precomputed LLM scores for all 131 subjects, and Fig. 2 (LLM ratings by cohort) are in place. Remaining: statistical analyses (Kruskal-Wallis, Spearman/FDR, Graphical Lasso, classification), Reddit external validation, and the 100-run determinism check (SD/CV/ICC1).
