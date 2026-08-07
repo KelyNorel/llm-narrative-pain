@@ -5,3 +5,10 @@ ipykernel
 git+https://github.com/openai/whisper.git
 torch
 pydub
+
+# analysis
+pandas
+matplotlib
+seaborn
+litellm
+python-dotenv

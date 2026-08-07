@@ -9,8 +9,7 @@ The repo is organized by pipeline stage, matching the folders under `Code/`:
 | Folder | Purpose |
 |---|---|
 | `Code/preprocessing/` | Audio cleanup + transcription (interview recordings -> text) |
-| `Code/analysis/` | LLM-based scoring + statistical analyses reported in the paper |
-| `Code/rebuttal/` | Additional analyses added during peer review |
+| `Code/analysis/` | LLM-based scoring + all statistical analyses reported in the paper (including analyses added during peer review) |
 
 `Data/`, `Results/`, and `Figures/` mirror these stages as the corresponding code is added.
 
@@ -31,21 +30,28 @@ Paths are never hardcoded. `Code/config.py` resolves the project root from its o
 
 ## Data
 
-Raw interview recordings and transcripts are **not included** in this repository — they are identifiable patient data (PHI) collected under IRB approval (URMC IRB Study 00007633) and cannot be shared. The folders below are kept as empty placeholders (`.gitkeep`) so the pipeline runs once you supply your own data in the same layout:
+Raw interview **recordings** are **not included** in this repository — they are identifiable patient data (PHI) collected under IRB approval (URMC IRB Study 00007633) and cannot be shared. `audio_raw/` and `audio_cut/` are kept as empty placeholders (`.gitkeep`) so the preprocessing pipeline runs once you supply your own recordings in the same layout.
+
+Interview **transcripts** are de-identified and are included, since sharing them is covered by the study's IRB approval.
 
 ```
 Data/
-├── audio_raw/       # original .m4a interview recordings (not included)
-├── audio_cut/       # .wav after m4a conversion + long-silence removal (generated)
-└── transcripts/     # .txt transcripts from Whisper (generated)
+├── audio_raw/                    # original .m4a interview recordings (not included)
+├── audio_cut/                    # .wav after m4a conversion + long-silence removal (not included)
+└── transcripts/
+    ├── raw/                      # whole-interview transcript from Whisper (not included)
+    ├── common/                   # common section (all participants: CLBP, MDD, HC)
+    └── condition_specific/       # condition-specific section (CLBP and MDD only)
 ```
+
+Each transcript is named `<Study ID>_<Dx>.txt` (e.g. `1202_CLBP.txt`), `Dx` ∈ {`CLBP`, `MDD`, `HC`}. `raw/` is split into `common/` + `condition_specific/` by an LLM call (`Code/analysis/transcript_splitter.py`), not by an audio-level segmentation. LLM-derived metrics reported in the main analysis are always computed from `common/`, except for the Reddit external-validation comparison (Fig. 5), which uses `condition_specific/`.
 
 ## Preprocessing (`Code/preprocessing/`)
 
 Recordings were captured in Zoom with each speaker on a separate audio channel, so no speaker diarization is needed.
 
 1. **`audio_preprocessing.py`** — converts `.m4a` recordings under `Data/audio_raw/` (searched recursively, so cohort subfolders are optional) to `.wav`, then removes long silences (pydub, silence threshold -50 dB, min length 5 s), writing the result to `Data/audio_cut/`.
-2. **`transcribe.py`** — transcribes each `.wav` in `Data/audio_cut/` with OpenAI's Whisper **base** model (run locally, matching the paper), writing `.txt` files to `Data/transcripts/`.
+2. **`transcribe.py`** — transcribes each `.wav` in `Data/audio_cut/` with OpenAI's Whisper **base** model (run locally, matching the paper), writing whole-interview `.txt` files to `Data/transcripts/raw/`. Splitting into `common/`/`condition_specific/` happens later, in `Code/analysis/transcript_splitter.py` (LLM-based, not audio-based).
 
 Run both from `run_preprocessing.ipynb`, or directly:
 
@@ -59,8 +65,33 @@ python transcribe.py
 
 Note: this consolidates the original exploratory notebooks (`whisper.ipynb`, `cut_pauses_run.ipynb`) into reusable functions with the same parameters (Whisper `base`, `condition_on_previous_text=False`, `hallucination_silence_threshold=2`; silence threshold -50 dB / 5000 ms). The originals also included one-off cells for specific subjects/cohorts and a manual Whisper weight-caching step, which are dropped here in favor of Whisper's own model cache (`~/.cache/whisper`).
 
+## Analysis (`Code/analysis/`)
+
+### Credentials
+
+`llm_scoring.py` and `transcript_splitter.py` call Llama-3-405B-Instruct through IBM watsonx (via [litellm](https://github.com/BerriAI/litellm)). Credentials are never hardcoded — copy `.env.example` to `.env` at the repo root and fill in your own `WATSONX_APIKEY`, `WATSONX_URL`, `WATSONX_PROJECT_ID`. `.env` is git-ignored. `Code/config.py` loads it automatically for every script.
+
+These two scripts require a live watsonx project with that model deployed; they cannot be run/tested without one.
+
+### Scripts
+
+1. **`transcript_splitter.py`** — splits each whole-interview transcript in `Data/transcripts/raw/` into `common/` + `condition_specific/`, via an LLM prompt that identifies the structural transition between the generic and condition-specific parts of the interview (HC transcripts have no condition-specific section).
+2. **`llm_scoring.py`** — scores each transcript in `Data/transcripts/common/` with two prompts (`PROMPT_1`: Physical_Pain, Emotional_Pain, Depression, poor_QoL, Anxiety; `PROMPT_2`: Catastrophizing, Rumination, Narrative_Fragmentation, Agency_Deficit — the paper's nine metrics), `temperature=0` for determinism. Caches one JSON per subject in `Results/llm_scores/` and writes `Results/llm_scores/llm_scores.csv`.
+3. **`word_counts.py`** — counts words/characters per transcript in `Data/transcripts/common/`, saves `Results/word_counts.csv`, and plots word count by cohort (`Figures/word_count_boxplot.png`).
+
+Run from `run_llm_scoring.ipynb` / `run_word_counts.ipynb`, or directly:
+
+```bash
+cd Code/analysis
+python transcript_splitter.py
+python llm_scoring.py
+python word_counts.py
+```
+
+Note: adapted from backup notebooks (`LLscores.ipynb`, `LLscores_100runs.ipynb`, `split_file_afterLLM.ipynb`) that contained dozens of abandoned prompt variants from earlier iterations, plus a hardcoded watsonx API key — neither made it in here. Kept: the retry/backoff logic, JSON-cleaning, and per-file caching from the original driver function; the two prompts are the final ones reported in the paper.
+
 ---
 
 **Author:** Raquel (Kely) Norel, PhD
 **Domain:** Computational Psychiatry / NLP / LLM-Based Clinical Assessment
-**Status:** 🚧 In progress. Preprocessing (audio cleanup + Whisper transcription) is done and reproducible from raw recordings. Remaining: `Code/analysis/` (LLM scoring via IBM watsonx + statistical analyses) and `Code/rebuttal/`.
+**Status:** 🚧 In progress. Preprocessing and the core LLM-scoring pipeline (transcript splitting + 9-metric scoring + word counts) are in place, code-complete but untested end-to-end (no active watsonx access on this machine). Remaining: statistical analyses (Kruskal-Wallis, Spearman/FDR, Graphical Lasso, classification), Reddit external validation, and the 100-run determinism check (SD/CV/ICC1) added during peer review.

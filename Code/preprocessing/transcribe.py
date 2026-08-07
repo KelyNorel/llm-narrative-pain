@@ -8,7 +8,7 @@ import warnings
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # Code/
-from config import AUDIO_CUT_DIR, TRANSCRIPTS_DIR
+from config import AUDIO_CUT_DIR, TRANSCRIPTS_RAW_DIR
 
 warnings.filterwarnings("ignore", message="FP16 is not supported on CPU; using FP32 instead")
 
@@ -17,7 +17,7 @@ import whisper  # pip install git+https://github.com/openai/whisper.git
 WHISPER_MODEL_NAME = "base"
 
 
-def transcribe_recordings(audio_dir: Path = AUDIO_CUT_DIR, output_dir: Path = TRANSCRIPTS_DIR) -> None:
+def transcribe_recordings(audio_dir: Path = AUDIO_CUT_DIR, output_dir: Path = TRANSCRIPTS_RAW_DIR) -> None:
     # whisper.load_model() downloads once and caches under ~/.cache/whisper
     model = whisper.load_model(WHISPER_MODEL_NAME)
     output_dir.mkdir(parents=True, exist_ok=True)

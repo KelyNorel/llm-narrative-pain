@@ -6,10 +6,15 @@ __pycache__/
 # OS
 .DS_Store
 
-# PHI - raw audio recordings and transcripts must never be committed
+# Secrets - never commit real credentials
+.env
+
+# Personal notes, kept elsewhere
+go_venv.txt
+
+# PHI - raw audio recordings must never be committed
+# (transcripts ARE included: de-identified, IRB-approved for sharing)
 Data/audio_raw/*
 Data/audio_cut/*
-Data/transcripts/*
 !Data/audio_raw/.gitkeep
 !Data/audio_cut/.gitkeep
-!Data/transcripts/.gitkeep
