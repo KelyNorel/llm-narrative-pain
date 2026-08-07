@@ -1,4 +1,5 @@
 jupyterlab
+ipykernel
 
 # preprocessing
 git+https://github.com/openai/whisper.git

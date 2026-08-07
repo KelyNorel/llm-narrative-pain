@@ -20,7 +20,10 @@ The repo is organized by pipeline stage, matching the folders under `Code/`:
 pyenv virtualenv 3.11 clbp_mdd
 pyenv activate clbp_mdd
 pip install -r requirements.txt
+python -m ipykernel install --user --name clbp_mdd --display-name "clbp_mdd"
 ```
+
+The last line registers the venv as a Jupyter kernel named `clbp_mdd`, so it shows up in the kernel picker (VS Code / JupyterLab) instead of only the default `Python 3 (ipykernel)`.
 
 All stages share one virtualenv, so dependencies live in a single `requirements.txt` at the repo root, extended as each stage is documented here.
 
