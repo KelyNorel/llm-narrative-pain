@@ -88,8 +88,6 @@ python llm_scoring.py
 python word_counts.py
 ```
 
-Note: adapted from backup notebooks (`LLscores.ipynb`, `LLscores_100runs.ipynb`, `split_file_afterLLM.ipynb`) that contained dozens of abandoned prompt variants from earlier iterations, plus a hardcoded watsonx API key — neither made it in here. Kept: the retry/backoff logic, JSON-cleaning, and per-file caching from the original driver function; the two prompts are the final ones reported in the paper.
-
 ---
 
 **Author:** Raquel (Kely) Norel, PhD
