@@ -78,6 +78,8 @@ These two scripts require a live watsonx project with that model deployed; they 
 1. **`transcript_splitter.py`** — splits each whole-interview transcript in `Data/transcripts/raw/` into `common/` + `condition_specific/`, via an LLM prompt that identifies the structural transition between the generic and condition-specific parts of the interview (HC transcripts have no condition-specific section).
 2. **`llm_scoring.py`** — scores each transcript with two prompts (`PROMPT_1`: Physical_Pain, Emotional_Pain, Depression, poor_QoL, Anxiety; `PROMPT_2`: Catastrophizing, Rumination, Narrative_Fragmentation, Agency_Deficit — the paper's nine metrics), `temperature=0` for determinism. `score_all_transcripts(section)` (`section` = `"common"` or `"condition_specific"`) caches one JSON per subject and writes `Results/llm_scores/llm_scores_common.csv` / `llm_scores_condition_specific.csv`. `load_llm_scores(section)` reads those CSVs back — use it (not a hardcoded path) in any downstream analysis script.
 3. **`word_counts.py`** — counts words/characters per transcript in `Data/transcripts/common/`, saves `Results/word_counts.csv`, and plots word count by cohort (`Figures/word_count_boxplot.png`).
+4. **`boxplots.py`** — `plot_metrics_comparison(...)`, the shared plotting function behind the paper's boxplot figures: per-metric Kruskal-Wallis omnibus test, then pairwise Mann-Whitney U (two-sided) brackets only for pairs listed in `pairwise_comparisons` when the omnibus test is significant; pastel cohort colors, hatching for N ≥ 100, jittered points for N < 100. Generic over any metrics/panels, not specific to one figure.
+5. **`fig2_llm_ratings_by_cohort.py`** — reproduces Fig. 2 (Physical Pain/QoL, five negative-affect metrics, Agency Deficit/Narrative Fragmentation, by cohort) using `boxplots.py` + `load_llm_scores("common")`, saving `Figures/fig2_llm_ratings_by_cohort.png`.
 
 Run from `run_llm_scoring.ipynb` / `run_word_counts.ipynb`, or directly:
 
@@ -86,6 +88,7 @@ cd Code/analysis
 python transcript_splitter.py
 python llm_scoring.py
 python word_counts.py
+python fig2_llm_ratings_by_cohort.py
 ```
 
 ---

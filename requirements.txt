@@ -10,5 +10,6 @@ pydub
 pandas
 matplotlib
 seaborn
+scipy
 litellm
 python-dotenv
