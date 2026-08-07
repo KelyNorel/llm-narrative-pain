@@ -63,8 +63,6 @@ python transcribe.py
 
 **System dependency:** [`ffmpeg`](https://ffmpeg.org/) must be installed and on `PATH` (used by both `pydub` and Whisper). On macOS: `brew install ffmpeg`.
 
-Note: this consolidates the original exploratory notebooks (`whisper.ipynb`, `cut_pauses_run.ipynb`) into reusable functions with the same parameters (Whisper `base`, `condition_on_previous_text=False`, `hallucination_silence_threshold=2`; silence threshold -50 dB / 5000 ms). The originals also included one-off cells for specific subjects/cohorts and a manual Whisper weight-caching step, which are dropped here in favor of Whisper's own model cache (`~/.cache/whisper`).
-
 ## Analysis (`Code/analysis/`)
 
 ### Credentials
