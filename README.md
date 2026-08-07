@@ -76,7 +76,7 @@ These two scripts require a live watsonx project with that model deployed; they 
 ### Scripts
 
 1. **`transcript_splitter.py`** — splits each whole-interview transcript in `Data/transcripts/raw/` into `common/` + `condition_specific/`, via an LLM prompt that identifies the structural transition between the generic and condition-specific parts of the interview (HC transcripts have no condition-specific section).
-2. **`llm_scoring.py`** — scores each transcript in `Data/transcripts/common/` with two prompts (`PROMPT_1`: Physical_Pain, Emotional_Pain, Depression, poor_QoL, Anxiety; `PROMPT_2`: Catastrophizing, Rumination, Narrative_Fragmentation, Agency_Deficit — the paper's nine metrics), `temperature=0` for determinism. Caches one JSON per subject in `Results/llm_scores/` and writes `Results/llm_scores/llm_scores.csv`.
+2. **`llm_scoring.py`** — scores each transcript with two prompts (`PROMPT_1`: Physical_Pain, Emotional_Pain, Depression, poor_QoL, Anxiety; `PROMPT_2`: Catastrophizing, Rumination, Narrative_Fragmentation, Agency_Deficit — the paper's nine metrics), `temperature=0` for determinism. `score_all_transcripts(section)` (`section` = `"common"` or `"condition_specific"`) caches one JSON per subject and writes `Results/llm_scores/llm_scores_common.csv` / `llm_scores_condition_specific.csv`. `load_llm_scores(section)` reads those CSVs back — use it (not a hardcoded path) in any downstream analysis script.
 3. **`word_counts.py`** — counts words/characters per transcript in `Data/transcripts/common/`, saves `Results/word_counts.csv`, and plots word count by cohort (`Figures/word_count_boxplot.png`).
 
 Run from `run_llm_scoring.ipynb` / `run_word_counts.ipynb`, or directly:
@@ -92,4 +92,4 @@ python word_counts.py
 
 **Author:** Raquel (Kely) Norel, PhD
 **Domain:** Computational Psychiatry / NLP / LLM-Based Clinical Assessment
-**Status:** 🚧 In progress. Preprocessing and the core LLM-scoring pipeline (transcript splitting + 9-metric scoring + word counts) are in place, code-complete but untested end-to-end (no active watsonx access on this machine). Remaining: statistical analyses (Kruskal-Wallis, Spearman/FDR, Graphical Lasso, classification), Reddit external validation, and the 100-run determinism check (SD/CV/ICC1) added during peer review.
+**Status:** 🚧 In progress. Preprocessing, the LLM-scoring pipeline (transcript splitting + 9-metric scoring + word counts), and precomputed LLM scores for all 131 subjects are in place. The scoring/splitting code itself is untested end-to-end (no active watsonx access on this machine). Remaining: statistical analyses (Kruskal-Wallis, Spearman/FDR, Graphical Lasso, classification), Reddit external validation, and the 100-run determinism check (SD/CV/ICC1) added during peer review.

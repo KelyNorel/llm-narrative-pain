@@ -20,7 +20,12 @@ import traceback
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from config import TRANSCRIPTS_DIR, RESULTS_DIR
+from config import (
+    TRANSCRIPTS_COMMON_DIR,
+    TRANSCRIPTS_CONDITION_DIR,
+    LLM_SCORES_COMMON_CSV,
+    LLM_SCORES_CONDITION_CSV,
+)
 
 import litellm
 
@@ -132,14 +137,23 @@ def score_transcript(transcript_path: Path, run_id: int | None = None) -> dict:
     return scores
 
 
-def score_all_transcripts(
-    transcripts_dir: Path = TRANSCRIPTS_DIR / "common",
-    output_dir: Path = RESULTS_DIR / "llm_scores",
-) -> "pd.DataFrame":
-    """Score every transcript in transcripts_dir, caching one JSON file per subject."""
+# Section name -> (transcripts folder, output CSV). Filenames match the
+# precomputed results already in the repo (Results/llm_scores/), so a
+# fresh run overwrites them in place with the same names.
+SECTIONS = {
+    "common": (TRANSCRIPTS_COMMON_DIR, LLM_SCORES_COMMON_CSV),
+    "condition_specific": (TRANSCRIPTS_CONDITION_DIR, LLM_SCORES_CONDITION_CSV),
+}
+
+
+def score_all_transcripts(section: str = "common") -> "pd.DataFrame":
+    """Score every transcript in the given interview section, caching one JSON file per subject."""
     import pandas as pd
 
+    transcripts_dir, csv_path = SECTIONS[section]
+    output_dir = csv_path.parent
     output_dir.mkdir(parents=True, exist_ok=True)
+
     rows = []
     for txt_path in sorted(transcripts_dir.glob("*.txt")):
         study_id, dx = txt_path.stem.split("_")
@@ -160,10 +174,25 @@ def score_all_transcripts(
         rows.append({"study_id": study_id, "dx": dx, **scores})
 
     df = pd.DataFrame(rows)
-    df.to_csv(output_dir / "llm_scores.csv", index=False)
-    print(f"{len(df)} transcripts scored -> {output_dir / 'llm_scores.csv'}")
+    df.to_csv(csv_path, index=False)
+    print(f"{len(df)} transcripts scored -> {csv_path}")
     return df
 
 
+def load_llm_scores(section: str = "common") -> "pd.DataFrame":
+    """Load precomputed LLM scores for the given interview section.
+
+    Use this in downstream analysis/stats scripts instead of hardcoding
+    a path to Results/llm_scores/llm_scores_common.csv or
+    llm_scores_condition_specific.csv.
+    """
+    import pandas as pd
+
+    _, csv_path = SECTIONS[section]
+    df = pd.read_csv(csv_path)
+    return df.rename(columns={"Study ID": "study_id", "Dx": "dx"})
+
+
 if __name__ == "__main__":
-    score_all_transcripts()
+    score_all_transcripts("common")
+    score_all_transcripts("condition_specific")

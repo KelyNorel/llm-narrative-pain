@@ -34,3 +34,8 @@ TRANSCRIPTS_DIR = DATA_DIR / "transcripts"
 TRANSCRIPTS_RAW_DIR = TRANSCRIPTS_DIR / "raw"
 TRANSCRIPTS_COMMON_DIR = TRANSCRIPTS_DIR / "common"
 TRANSCRIPTS_CONDITION_DIR = TRANSCRIPTS_DIR / "condition_specific"
+
+# LLM scoring outputs (9 metrics per subject, one CSV per interview section)
+LLM_SCORES_DIR = RESULTS_DIR / "llm_scores"
+LLM_SCORES_COMMON_CSV = LLM_SCORES_DIR / "llm_scores_common.csv"
+LLM_SCORES_CONDITION_CSV = LLM_SCORES_DIR / "llm_scores_condition_specific.csv"
