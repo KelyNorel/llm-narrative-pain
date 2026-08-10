@@ -46,6 +46,8 @@ Data/
 
 Each transcript is named `<Study ID>_<Dx>.txt` (e.g. `1202_CLBP.txt`), `Dx` ∈ {`CLBP`, `MDD`, `HC`}. `raw/` is split into `common/` + `condition_specific/` by an LLM call (`Code/analysis/transcript_splitter.py`), not by an audio-level segmentation. LLM-derived metrics reported in the main analysis are always computed from `common/`, except for the Reddit external-validation comparison (Fig. 5), which uses `condition_specific/`.
 
+`Data/clinical/clbp_clinical.csv` / `mdd_clinical.csv` hold the validated clinical questionnaire scores (NRS, VAS, MPQ, PDQ, CSI, PCS, RMDQ, MADRS, HADS, etc.) per `Study ID`, one file per cohort — also de-identified and included.
+
 ## Preprocessing (`Code/preprocessing/`)
 
 Recordings were captured in Zoom with each speaker on a separate audio channel, so no speaker diarization is needed.
@@ -78,6 +80,14 @@ These two scripts require a live watsonx project with that model deployed; they 
 3. **`word_counts.py`** — counts words/characters per transcript in `Data/transcripts/common/`, saves `Results/word_counts.csv`, and plots word count by cohort (`Figures/word_count_boxplot.png`).
 4. **`boxplots.py`** — `plot_metrics_comparison(...)`, the shared plotting function behind the paper's boxplot figures: per-metric Kruskal-Wallis omnibus test, then pairwise Mann-Whitney U (two-sided) brackets only for pairs listed in `pairwise_comparisons` when the omnibus test is significant; pastel cohort colors, hatching for N ≥ 100, jittered points for N < 100. Generic over any metrics/panels, not specific to one figure.
 5. **`fig2_llm_ratings_by_cohort.py`** — reproduces Fig. 2 (Physical Pain/QoL, five negative-affect metrics, Agency Deficit/Narrative Fragmentation, by cohort) using `boxplots.py` + `load_llm_scores("common")`, saving `Figures/fig2_llm_ratings_by_cohort.png`.
+6. **`correlation_heatmap.py`** — `plot_combined_llm_vs_clinical_correlation(...)`: Spearman correlation between LLM metrics and clinical scores, FDR-corrected (Benjamini-Hochberg) per cohort, combined into one heatmap with a per-cohort median column.
+7. **`fig3_llm_clinical_correlations.py`** — reproduces Fig. 3 (LLM metrics vs. clinical scores, CLBP + MDD) using `correlation_heatmap.py` + `Data/clinical/`, saving `Figures/fig3_llm_clinical_correlations.png`.
+8. **`glasso_correlations.py`** — fits Graphical Lasso (5-fold CV alpha) on the nine LLM metrics and bootstraps FDR-corrected significance for both the bivariate (Spearman) and GLasso partial correlation networks.
+9. **`fig4ab_glasso_correlations_clbp.py`** / **`efig2ab_glasso_correlations_mdd.py`** — reproduce Fig. 4 / eFigure 2 panels A/B using `glasso_correlations.py`, saving `Figures/fig4ab_glasso_correlations_clbp.png` / `efig2ab_glasso_correlations_mdd.png`.
+10. **`circular_dendrogram.py`** — Ward-linkage circular (radial) dendrogram of a (thresholded) partial correlation matrix, labels rotated to point outward. Renders black/white; the published figure's colored "Emotional"/"Cognitive" cluster sectors were added manually afterward (cluster boundaries chosen by eye from the leaf angles, per the paper's Methods).
+11. **`fig4c_circular_dendrogram_clbp.py`** / **`efig2c_circular_dendrogram_mdd.py`** — reproduce Fig. 4 / eFigure 2 panel C using `circular_dendrogram.py` and the precomputed partial correlation matrices in `Results/glasso/` (not a live GLasso refit — the dendrogram's topology is sensitive to small alpha differences that drift across scikit-learn versions, unlike panels A/B's significance counts, which reproduce exactly either way). Saves `Figures/fig4c_circular_dendrogram_clbp.png` / `efig2c_circular_dendrogram_mdd.png`.
+12. **`join_panels.py`** — `join_ab_c(...)`: stacks a panel-A/B image above a panel-C image with "A"/"B"/"C" labels, matching the paper's layout.
+13. **`fig4_join_panels_clbp.py`** / **`efig2_join_panels_mdd.py`** — composite the full Fig. 4 / eFigure 2 (panels A+B+C) using `join_panels.py`, saving `Figures/fig4_combined_clbp.png` / `efig2_combined_mdd.png`.
 
 Run from `run_llm_scoring.ipynb` / `run_word_counts.ipynb`, or directly:
 
@@ -87,10 +97,17 @@ python transcript_splitter.py
 python llm_scoring.py
 python word_counts.py
 python fig2_llm_ratings_by_cohort.py
+python fig3_llm_clinical_correlations.py
+python fig4ab_glasso_correlations_clbp.py
+python efig2ab_glasso_correlations_mdd.py
+python fig4c_circular_dendrogram_clbp.py
+python efig2c_circular_dendrogram_mdd.py
+python fig4_join_panels_clbp.py
+python efig2_join_panels_mdd.py
 ```
 
 ---
 
 **Author:** Raquel (Kely) Norel, PhD
 **Domain:** Computational Psychiatry / NLP / LLM-Based Clinical Assessment
-**Status:** 🚧 In progress. Preprocessing, the LLM-scoring pipeline (transcript splitting + 9-metric scoring + word counts), precomputed LLM scores for all 131 subjects, and Fig. 2 (LLM ratings by cohort) are in place. Remaining: statistical analyses (Kruskal-Wallis, Spearman/FDR, Graphical Lasso, classification), Reddit external validation, and the 100-run output variability check at `temperature=0` (SD/CV/ICC1).
+**Status:** 🚧 In progress. Preprocessing, the LLM-scoring pipeline, precomputed LLM scores and clinical data, and Fig. 2, Fig. 3, and Fig. 4 / eFigure 2 (all panels) are in place. Remaining: classification analysis, Reddit external validation (Fig. 5), and the 100-run output variability check at `temperature=0` (SD/CV/ICC1).
