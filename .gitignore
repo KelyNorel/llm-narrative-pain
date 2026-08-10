@@ -12,6 +12,9 @@ __pycache__/
 # Personal notes, kept elsewhere
 go_venv.txt
 
+# Publication-res TIFF exports are huge (100s of MB); PNGs in Figures/ are enough for the repo
+*.tiff
+
 # PHI - raw audio recordings must never be committed
 # (transcripts ARE included: de-identified, IRB-approved for sharing)
 Data/audio_raw/*

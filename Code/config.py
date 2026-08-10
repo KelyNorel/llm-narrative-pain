@@ -39,3 +39,8 @@ TRANSCRIPTS_CONDITION_DIR = TRANSCRIPTS_DIR / "condition_specific"
 LLM_SCORES_DIR = RESULTS_DIR / "llm_scores"
 LLM_SCORES_COMMON_CSV = LLM_SCORES_DIR / "llm_scores_common.csv"
 LLM_SCORES_CONDITION_CSV = LLM_SCORES_DIR / "llm_scores_condition_specific.csv"
+
+# Clinical questionnaire scores (validated instruments), one CSV per cohort
+CLINICAL_DIR = DATA_DIR / "clinical"
+CLINICAL_CLBP_CSV = CLINICAL_DIR / "clbp_clinical.csv"
+CLINICAL_MDD_CSV = CLINICAL_DIR / "mdd_clinical.csv"
