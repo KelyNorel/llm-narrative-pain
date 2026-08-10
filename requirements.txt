@@ -14,5 +14,6 @@ scipy
 statsmodels
 scikit-learn
 tqdm
+Pillow
 litellm
 python-dotenv
