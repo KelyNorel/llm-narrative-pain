@@ -44,3 +44,9 @@ LLM_SCORES_CONDITION_CSV = LLM_SCORES_DIR / "llm_scores_condition_specific.csv"
 CLINICAL_DIR = DATA_DIR / "clinical"
 CLINICAL_CLBP_CSV = CLINICAL_DIR / "clbp_clinical.csv"
 CLINICAL_MDD_CSV = CLINICAL_DIR / "mdd_clinical.csv"
+
+# GLasso partial correlation matrices (point estimates behind Fig. 4 / eFigure 2
+# panel C's dendrogram), one CSV per cohort
+GLASSO_DIR = RESULTS_DIR / "glasso"
+PARTIAL_CORR_CLBP_CSV = GLASSO_DIR / "partial_corr_clbp.csv"
+PARTIAL_CORR_MDD_CSV = GLASSO_DIR / "partial_corr_mdd.csv"
