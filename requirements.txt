@@ -12,5 +12,7 @@ matplotlib
 seaborn
 scipy
 statsmodels
+scikit-learn
+tqdm
 litellm
 python-dotenv
