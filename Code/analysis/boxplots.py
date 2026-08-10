@@ -297,7 +297,10 @@ def plot_metrics_comparison(
         ax.tick_params(axis="y", labelsize=22 * SCALE)
 
         panel_label = chr(65 + subplot_idx)  # A, B, C, ...
-        ax.text(-0.08, 1.05, panel_label, transform=ax.transAxes, fontsize=36 * SCALE, fontweight="bold", va="top", ha="left")
+        # A small y-bump (in addition to the x-offset) clears wide y-tick
+        # labels (e.g. "8000") without reaching high enough to collide with
+        # a figure-level main_title, which sits close to the figure top.
+        ax.text(-0.04, 1.08, panel_label, transform=ax.transAxes, fontsize=36 * SCALE, fontweight="bold", va="top", ha="left")
 
     caption_text = create_significance_caption(all_significant_results, group_sizes)
 

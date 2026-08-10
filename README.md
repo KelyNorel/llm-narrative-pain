@@ -88,6 +88,8 @@ These two scripts require a live watsonx project with that model deployed; they 
 11. **`fig4c_circular_dendrogram_clbp.py`** / **`efig2c_circular_dendrogram_mdd.py`** — reproduce Fig. 4 / eFigure 2 panel C using `circular_dendrogram.py` and the precomputed partial correlation matrices in `Results/glasso/` (not a live GLasso refit — the dendrogram's topology is sensitive to small alpha differences that drift across scikit-learn versions, unlike panels A/B's significance counts, which reproduce exactly either way). Saves `Figures/fig4c_circular_dendrogram_clbp.png` / `efig2c_circular_dendrogram_mdd.png`.
 12. **`join_panels.py`** — `join_ab_c(...)`: stacks a panel-A/B image above a panel-C image with "A"/"B"/"C" labels, matching the paper's layout.
 13. **`fig4_join_panels_clbp.py`** / **`efig2_join_panels_mdd.py`** — composite the full Fig. 4 / eFigure 2 (panels A+B+C) using `join_panels.py`, saving `Figures/fig4_combined_clbp.png` / `efig2_combined_mdd.png`.
+14. **`fig5_reddit_comparison.py`** — reproduces Fig. 5 panels A-C (LLM metrics for the condition-specific section, clinical cohorts vs. matched Reddit communities `r/chronicpain` / `r/depressed`) using `boxplots.py` + `Results/reddit/`. No p-value brackets except `r/chronicpain` vs. `r/depressed`, gated on effect size (`min_effect_size=2`) rather than p-value, since Mann-Whitney p-values are trivially significant at Reddit's N (~4,900 / ~2,300) against clinical N (67/33). Panel D (schematic, built in PowerPoint) is not reproduced. Saves `Figures/fig5_reddit_comparison.png`.
+15. **`figs1_data_amount.py`** — reproduces Fig. S1 (speech duration + word count by cohort) using `boxplots.py` + `Results/data_amount.csv`. All three pairwise comparisons are p < 0.001 for both metrics, so brackets are omitted from the plot (`pairwise_comparisons=None`) and stated once in the figure caption instead. Saves `Figures/figs1_data_amount.png`.
 
 Run from `run_llm_scoring.ipynb` / `run_word_counts.ipynb`, or directly:
 
@@ -104,10 +106,12 @@ python fig4c_circular_dendrogram_clbp.py
 python efig2c_circular_dendrogram_mdd.py
 python fig4_join_panels_clbp.py
 python efig2_join_panels_mdd.py
+python fig5_reddit_comparison.py
+python figs1_data_amount.py
 ```
 
 ---
 
 **Author:** Raquel (Kely) Norel, PhD
 **Domain:** Computational Psychiatry / NLP / LLM-Based Clinical Assessment
-**Status:** 🚧 In progress. Preprocessing, the LLM-scoring pipeline, precomputed LLM scores and clinical data, and Fig. 2, Fig. 3, and Fig. 4 / eFigure 2 (all panels) are in place. Remaining: classification analysis, Reddit external validation (Fig. 5), and the 100-run output variability check at `temperature=0` (SD/CV/ICC1).
+**Status:** 🚧 In progress. Preprocessing, the LLM-scoring pipeline, precomputed LLM scores and clinical data, and Fig. 2, Fig. 3, Fig. 4 / eFigure 2 (all panels), Fig. 5 (panels A-C), and Fig. S1 are in place. Remaining: classification analysis and the 100-run output variability check at `temperature=0` (SD/CV/ICC1).

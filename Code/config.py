@@ -50,3 +50,6 @@ CLINICAL_MDD_CSV = CLINICAL_DIR / "mdd_clinical.csv"
 GLASSO_DIR = RESULTS_DIR / "glasso"
 PARTIAL_CORR_CLBP_CSV = GLASSO_DIR / "partial_corr_clbp.csv"
 PARTIAL_CORR_MDD_CSV = GLASSO_DIR / "partial_corr_mdd.csv"
+
+# Per-subject speech duration + word count (Fig. S1)
+DATA_AMOUNT_CSV = RESULTS_DIR / "data_amount.csv"
