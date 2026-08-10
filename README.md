@@ -79,14 +79,6 @@ These two scripts require a live watsonx project with that model deployed; they 
 4. **`boxplots.py`** — `plot_metrics_comparison(...)`, the shared plotting function behind the paper's boxplot figures: per-metric Kruskal-Wallis omnibus test, then pairwise Mann-Whitney U (two-sided) brackets only for pairs listed in `pairwise_comparisons` when the omnibus test is significant; pastel cohort colors, hatching for N ≥ 100, jittered points for N < 100. Generic over any metrics/panels, not specific to one figure.
 5. **`fig2_llm_ratings_by_cohort.py`** — reproduces Fig. 2 (Physical Pain/QoL, five negative-affect metrics, Agency Deficit/Narrative Fragmentation, by cohort) using `boxplots.py` + `load_llm_scores("common")`, saving `Figures/fig2_llm_ratings_by_cohort.png`.
 
-### Paper figure/table -> script
-
-Figure and table numbers can change between manuscript revisions, so scripts are named descriptively rather than by number (except `fig2_llm_ratings_by_cohort.py`, kept as-is). This table is the source of truth for which script reproduces which figure/table.
-
-| Paper reference | Script |
-|---|---|
-| Fig. 2 | `fig2_llm_ratings_by_cohort.py` |
-
 Run from `run_llm_scoring.ipynb` / `run_word_counts.ipynb`, or directly:
 
 ```bash
