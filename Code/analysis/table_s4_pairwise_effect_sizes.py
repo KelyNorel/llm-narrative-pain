@@ -1,13 +1,8 @@
 """Reproduce Table S4: pairwise cohort comparisons (CLBP vs MDD, CLBP vs
 HC, MDD vs HC) on each of the nine LLM-derived metrics -- Kruskal-Wallis
-omnibus per metric (significant for all nine, p < 0.0001), then Mann-
-Whitney U for each pair with Cliff's delta / rank-biserial r as effect
-size (see effect_sizes.py).
-
-The source notebook's p-values are raw Mann-Whitney p-values, but the
-paper's Table S4 caption states the p-value column is FDR-corrected;
-Benjamini-Hochberg is applied here across all 27 pairwise tests to
-match the caption. All comparisons remain significant either way.
+omnibus per metric, then Mann-Whitney U for each pair with Cliff's delta
+/ rank-biserial r as effect size (see effect_sizes.py). p-values are
+FDR-corrected (Benjamini-Hochberg) across all 27 pairwise tests.
 """
 import sys
 from pathlib import Path

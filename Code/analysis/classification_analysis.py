@@ -10,9 +10,8 @@ the same (best-hyperparameter) pipeline within each of the 5 folds --
 so every subject is scored only by folds that did not train on it, and
 each subject appears in the matrix exactly once. Because the grid
 search and the confusion-matrix folds are the same StratifiedKFold
-instance/seed, this is not a fully nested CV (hyperparameters were
-picked using the same folds the confusion matrix reports on), matching
-how the original analysis was run.
+instance/seed, this is not a fully nested CV: hyperparameters are
+picked using the same folds the confusion matrix reports on.
 """
 import sys
 from pathlib import Path

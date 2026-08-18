@@ -5,11 +5,10 @@ permutation_analysis.py) compares the full model (metric ~ cohort + age
 + sex) against the reduced model (metric ~ age + sex), then FDR
 (Benjamini-Hochberg) corrects across the 9 metrics.
 
-Metrics are processed in the paper's original computation order (not
-its display order) so that each metric's fixed permutation seed
-(seed=i, i = index in that order) reproduces the exact F/p values from
-the source notebook; the output table is then reindexed to the paper's
-display order.
+Metrics are processed in COMPUTATION_ORDER, not the paper's display
+order, because each metric's permutation seed is fixed to its index in
+that list (seed=i); the output table is reindexed to DISPLAY_ORDER
+afterward.
 """
 import sys
 from pathlib import Path

@@ -1,8 +1,5 @@
-"""Reproduce the temperature=0 output-variability check (Supplement;
-exact table/figure number TBD, rename this file once known): SD, CV, and
-ICC(1) of the LLM's scores across 98 repeated calls on the same
-transcript, per metric -- see temperature_variability.py for what these
-6 metrics are (and are not) relative to the paper's final 9.
+"""Reproduce Table S7: SD, CV, and ICC(1,1) of the LLM's scores across
+repeated temperature=0 calls on the same transcript, per metric.
 """
 import sys
 from pathlib import Path
@@ -25,13 +22,14 @@ def make_table():
     summary = subject_stats.groupby("metric").agg(
         n_subjects=("study_id", "nunique"),
         mean_sd=("sd", "mean"),
+        mean_cv_pct=("cv_pct", "mean"),
         median_cv_pct=("cv_pct", "median"),
         n_undefined_cv=("cv_pct", lambda s: s.isna().sum()),
     ).reindex(METRIC_COLUMNS).reset_index()
     summary = summary.merge(icc, on="metric")
 
     subject_stats_path = TEMP_VARIABILITY_DIR / "per_subject_variability.csv"
-    summary_path = TEMP_VARIABILITY_DIR / "variability_summary.csv"
+    summary_path = TEMP_VARIABILITY_DIR / "table_s7_output_variability.csv"
     subject_stats.to_csv(subject_stats_path, index=False)
     summary.to_csv(summary_path, index=False)
     print(f"Saved -> {subject_stats_path}")
@@ -40,17 +38,17 @@ def make_table():
 
     fig, axes = plt.subplots(1, 2, figsize=(13, 5))
     sns.boxplot(data=subject_stats, x="metric", y="sd", ax=axes[0], order=METRIC_COLUMNS)
-    axes[0].set_title("Per-subject SD across 98 runs")
+    axes[0].set_title("Per-subject SD across runs")
     axes[0].set_xlabel("")
     axes[0].tick_params(axis="x", rotation=30)
 
     sns.boxplot(data=subject_stats, x="metric", y="cv_pct", ax=axes[1], order=METRIC_COLUMNS)
-    axes[1].set_title("Per-subject CV (%) across 98 runs\n(undefined/unstable near a mean of 0 -- see caption)")
+    axes[1].set_title("Per-subject CV (%) across runs\n(undefined/unstable near a mean of 0 -- see docstring)")
     axes[1].set_xlabel("")
     axes[1].tick_params(axis="x", rotation=30)
 
     plt.tight_layout()
-    output_path = FIGURES_DIR / "table_temperature_variability.png"
+    output_path = FIGURES_DIR / "table_s7_output_variability.png"
     fig.savefig(output_path, dpi=200, bbox_inches="tight")
     print(f"Saved -> {output_path}")
 

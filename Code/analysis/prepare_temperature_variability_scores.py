@@ -2,11 +2,8 @@
 (one raw JSON per run per subject) into a single long CSV.
 
 Not part of the regular reproducible pipeline: the source JSONs live
-outside the repo and are not redistributed (they predate the paper's
-final 9-metric prompt and full 131-subject cohort -- see the module
-docstring in temperature_variability.py for what they actually cover).
-Rerun this only if the source folder changes, with SOURCE_DIR updated
-for your machine.
+outside the repo and are not redistributed. Rerun this only if the
+source folder changes, with SOURCE_DIR updated for your machine.
 
 Filename pattern: "{run}_{dx}_{study_id}.json", run in 0-99. A run that
 failed to score (LLM connection error, not a parsing bug) is saved as
