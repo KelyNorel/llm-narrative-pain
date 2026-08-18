@@ -41,10 +41,13 @@ Data/
 └── transcripts/
     ├── raw/                      # whole-interview transcript from Whisper (not included)
     ├── common/                   # common section (all participants: CLBP, MDD, HC)
-    └── condition_specific/       # condition-specific section (CLBP and MDD only)
+    ├── condition_specific/       # condition-specific section (CLBP and MDD only)
+    └── human/                    # 15 manually-transcribed reference interviews (WER validation)
 ```
 
 Each transcript is named `<Study ID>_<Dx>.txt` (e.g. `1202_CLBP.txt`), `Dx` ∈ {`CLBP`, `MDD`, `HC`}. `raw/` is split into `common/` + `condition_specific/` by an LLM call (`Code/analysis/transcript_splitter.py`), not by an audio-level segmentation. LLM-derived metrics reported in the main analysis are always computed from `common/`, except for the Reddit external-validation comparison (Fig. 5), which uses `condition_specific/`.
+
+`transcripts/human/` holds 5 manually-transcribed reference interviews per cohort, produced by `Code/analysis/prepare_human_transcripts.py` from a source Word document (not redistributed; only its per-subject output is, since that's covered by the same IRB approval). They cover the common section only, for all 15 subjects — see `wer_transcription_accuracy.py`.
 
 `Data/clinical/clbp_clinical.csv` / `mdd_clinical.csv` hold the validated clinical questionnaire scores (NRS, VAS, MPQ, PDQ, CSI, PCS, RMDQ, MADRS, HADS, etc.) per `Study ID`, one file per cohort — also de-identified and included.
 
@@ -90,6 +93,8 @@ These two scripts require a live watsonx project with that model deployed; they 
 13. **`fig4_join_panels_clbp.py`** / **`efig2_join_panels_mdd.py`** — composite the full Fig. 4 / eFigure 2 (panels A+B+C) using `join_panels.py`, saving `Figures/fig4_combined_clbp.png` / `efig2_combined_mdd.png`.
 14. **`fig5_reddit_comparison.py`** — reproduces Fig. 5 panels A-C (LLM metrics for the condition-specific section, clinical cohorts vs. matched Reddit communities `r/chronicpain` / `r/depressed`) using `boxplots.py` + `Results/reddit/`. No p-value brackets except `r/chronicpain` vs. `r/depressed`, gated on effect size (`min_effect_size=2`) rather than p-value, since Mann-Whitney p-values are trivially significant at Reddit's N (~4,900 / ~2,300) against clinical N (67/33). Panel D (schematic, built in PowerPoint) is not reproduced. Saves `Figures/fig5_reddit_comparison.png`.
 15. **`figs1_data_amount.py`** — reproduces Fig. S1 (speech duration + word count by cohort) using `boxplots.py` + `Results/data_amount.csv`. All three pairwise comparisons are p < 0.001 for both metrics, so brackets are omitted from the plot (`pairwise_comparisons=None`) and stated once in the figure caption instead. Saves `Figures/figs1_data_amount.png`.
+16. **`prepare_human_transcripts.py`** — one-time conversion of the 15 manually-transcribed reference interviews (source Word doc, not redistributed) into `Data/transcripts/human/`. Not part of the regular pipeline; its *output* is what's versioned.
+17. **`wer_transcription_accuracy.py`** — Word Error Rate of the automatic transcripts (`common/`) against `Data/transcripts/human/`, via `jiwer`. Across the 12 subjects with a usable automatic transcript: median WER 10.4%, mean 19.4% (mean pulled up by a 5-subject cluster at 32-42% vs. the rest at 2-12% — no subject in between; worth a closer look if audio ever becomes available again, since it isn't now). 3 subjects (1221, 1241, 1406) are flagged and excluded from that summary: their automatic `common/` transcript matches the human reference at the start and end but is missing two of the four common-section topics entirely (not misplaced into `condition_specific/` either) — a transcript-splitting-step data loss, not a transcription (Whisper) error, so their raw WER (0.92-0.97) isn't comparable to the rest. For a rough read on transcription quality itself for these 3, `wer_first_n_words` scores against just the first N words of the human reference (N = automatic word count) — an approximation (0.60-0.63), not a true aligned match, and documented as such. Saves `Results/wer/wer_by_subject.csv`.
 
 Run from `run_llm_scoring.ipynb` / `run_word_counts.ipynb`, or directly:
 
@@ -108,10 +113,12 @@ python fig4_join_panels_clbp.py
 python efig2_join_panels_mdd.py
 python fig5_reddit_comparison.py
 python figs1_data_amount.py
+python prepare_human_transcripts.py
+python wer_transcription_accuracy.py
 ```
 
 ---
 
 **Author:** Raquel (Kely) Norel, PhD
 **Domain:** Computational Psychiatry / NLP / LLM-Based Clinical Assessment
-**Status:** 🚧 In progress. Preprocessing, the LLM-scoring pipeline, precomputed LLM scores and clinical data, and Fig. 2, Fig. 3, Fig. 4 / eFigure 2 (all panels), Fig. 5 (panels A-C), and Fig. S1 are in place. Remaining: classification analysis and the 100-run output variability check at `temperature=0` (SD/CV/ICC1).
+**Status:** 🚧 In progress. Preprocessing, the LLM-scoring pipeline, precomputed LLM scores and clinical data, Fig. 2, Fig. 3, Fig. 4 / eFigure 2 (all panels), Fig. 5 (panels A-C), Fig. S1, and WER validation against 15 manual reference transcripts are in place. Remaining: classification analysis and the 100-run output variability check at `temperature=0` (SD/CV/ICC1).

@@ -15,5 +15,6 @@ statsmodels
 scikit-learn
 tqdm
 Pillow
+jiwer
 litellm
 python-dotenv

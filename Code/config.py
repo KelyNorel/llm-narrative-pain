@@ -34,6 +34,7 @@ TRANSCRIPTS_DIR = DATA_DIR / "transcripts"
 TRANSCRIPTS_RAW_DIR = TRANSCRIPTS_DIR / "raw"
 TRANSCRIPTS_COMMON_DIR = TRANSCRIPTS_DIR / "common"
 TRANSCRIPTS_CONDITION_DIR = TRANSCRIPTS_DIR / "condition_specific"
+TRANSCRIPTS_HUMAN_DIR = TRANSCRIPTS_DIR / "human"
 
 # LLM scoring outputs (9 metrics per subject, one CSV per interview section)
 LLM_SCORES_DIR = RESULTS_DIR / "llm_scores"
@@ -53,3 +54,8 @@ PARTIAL_CORR_MDD_CSV = GLASSO_DIR / "partial_corr_mdd.csv"
 
 # Per-subject speech duration + word count (Fig. S1)
 DATA_AMOUNT_CSV = RESULTS_DIR / "data_amount.csv"
+
+# WER: automatic transcripts (common + condition_specific) vs. 15 manual
+# reference transcripts in TRANSCRIPTS_HUMAN_DIR
+WER_DIR = RESULTS_DIR / "wer"
+WER_BY_SUBJECT_CSV = WER_DIR / "wer_by_subject.csv"
