@@ -63,3 +63,8 @@ WER_BY_SUBJECT_CSV = WER_DIR / "wer_by_subject.csv"
 # Participant demographics (age, sex, race, ethnicity, income, etc.), all
 # cohorts in one file, for confound analyses
 DEMOGRAPHICS_CSV = DATA_DIR / "demographics" / "demographics.csv"
+
+# Output-variability check: 100 repeated temperature=0 scoring runs, parsed
+# from raw per-run JSONs into one long CSV (see temperature_variability.py)
+TEMP_VARIABILITY_DIR = RESULTS_DIR / "temperature_variability"
+TEMP_VARIABILITY_SCORES_CSV = TEMP_VARIABILITY_DIR / "scores_100runs.csv"
