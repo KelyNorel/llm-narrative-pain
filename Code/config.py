@@ -59,3 +59,7 @@ DATA_AMOUNT_CSV = RESULTS_DIR / "data_amount.csv"
 # reference transcripts in TRANSCRIPTS_HUMAN_DIR
 WER_DIR = RESULTS_DIR / "wer"
 WER_BY_SUBJECT_CSV = WER_DIR / "wer_by_subject.csv"
+
+# Participant demographics (age, sex, race, ethnicity, income, etc.), all
+# cohorts in one file, for confound analyses
+DEMOGRAPHICS_CSV = DATA_DIR / "demographics" / "demographics.csv"

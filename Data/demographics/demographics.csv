@@ -1,0 +1,132 @@
+Study ID,Group,Age,Sex,BMI,Total years of education,Education,Marital status,Living situation,Employment status,Total household income last year,Pain duration (years),NRS,VAS pain,MPQ total,MPQ sensory,MPQ affective,PCS,PDQ,VAS depression,MADRS-S,HADS_Depression,HADS_Anxiety,RMDQ,TICS,NEO Personality Inventory,CSI,Ethnicity,Race
+1202,CLBP,61,Female,20.67,16,College,Married,With spouse/partner only,Unemployed,Prefer not to say,30,4,24,27,20,7,11,0,0,12,1,8,7,38,224,28,non-Hispanic,White/Caucasian
+1203,CLBP,61,Female,26.04,18,Graduate school,Married,With spouse/partner and other family,Employed full-time,">/= $200,000",40,5,50,12,11,1,9,8,37,13,4,7,8,40,225,37,non-Hispanic,White/Caucasian
+1204,CLBP,57,Male,26.75,16,College,Never married,Alone,Employed full-time,"$50-99,000",30,1,13,14,14,0,16,0,16,18,7,8,6,39,190,57,non-Hispanic,White/Caucasian
+1205,CLBP,70,Female,19.05,16,College,Married,With spouse/partner only,Unemployed,"$50-99,000",15,6,43,5,5,0,3,0,2,3,1,2,6,41,229,32,non-Hispanic,White/Caucasian
+1206,CLBP,60,Female,18.49,16,Graduate school,Married,With spouse/partner only,Employed full-time,Prefer not to say,29,4,45,15,9,6,31,6,46,6,3,11,7,38,206,50,non-Hispanic,White/Caucasian
+1207,CLBP,60,Female,34.02,16,College,Married,With spouse/partner only,Employed part-time,"$100-199,000",40,7,60,11,9,2,11,5,4,8,7,8,12,38,196,38,non-Hispanic,White/Caucasian
+1208,CLBP,44,Female,22.14,18,Graduate school,Married,With spouse/partner and other family,Employed full-time,"$50-99,000",2,5,43,3,3,0,1,0,14,15,6,13,4,38,203,46,non-Hispanic,White/Caucasian
+1210,CLBP,44,Female,35.84,14,College,Never married,Alone,Employed full-time,Prefer not to say,2.5,6,64,15,11,4,10,0,31,10,3,5,12,37,233,39,Hispanic or Latino,White/Caucasian
+1211,CLBP,48,Female,43.4,14,College,Married,With spouse/partner only,Employed full-time,Prefer not to say,20,4,50,23,18,5,4,10,50,17,11,4,12,42,165,67,non-Hispanic,White/Caucasian
+1212,CLBP,58,Male,36.72,12,High school or vocational school,Married,With spouse/partner and other family,Employed part-time,"$50-99,000",15,5,44,6,6,0,5,4,22,12,4,4,5,36,173,31,non-Hispanic,White/Caucasian
+1213,CLBP,52,Male,29.19,16,College,Married,With spouse/partner and other family,Employed full-time,">/= $200,000",1.75,2,19,17,16,1,14,4,10,2,1,5,5,41,208,27,non-Hispanic,Asian
+1214,CLBP,58,Male,31.95,12,High school or vocational school,Divorced,Alone,Unemployed,Prefer not to say,4,7,52,38,30,8,52,29,50,3,18,12,20,36,197,42,non-Hispanic,Black or African American
+1215,CLBP,58,Male,33.9,16,Graduate school,Married,With spouse/partner only,Employed full-time,Prefer not to say,15,0,2,12,12,0,0,0,0,0,0,0,16,37,208,12,non-Hispanic,White/Caucasian
+1216,CLBP,67,Male,30.18,14,College,Divorced,With spouse/partner and other family,Employed part-time,"$20-29,000",15,1,5,3,3,0,0,1,0,0,1,2,6,39,191,9,non-Hispanic,White/Caucasian
+1217,CLBP,64,Male,30.64,16,College,Married,With spouse/partner only,Employed full-time,Prefer not to say,16,2,13,8,6,2,8,0,3,2,1,4,5,45,210,12,non-Hispanic,White/Caucasian
+1218,CLBP,47,Male,43.09,12,High school or vocational school,Never married,Alone,Unemployed,"<$20,000",5,6,62,13,12,1,14,4,32,10,4,5,15,35,139,24,non-Hispanic,White/Caucasian
+1219,CLBP,61,Male,51.99,14,College,Married,With spouse/partner and other family,Unemployed,"$30-39,000",42,2,15,14,11,3,28,10,2,16,7,4,12,35,181,48,non-Hispanic,White/Caucasian
+1221,CLBP,68,Male,30.38,16,College,Married,With spouse/partner only,Unemployed,"$50-99,000",49,7,10,27,18,9,40,14,8,15,5,8,11,41,234,45,non-Hispanic,White/Caucasian
+1222,CLBP,66,Male,31.79,16,College,Divorced,Alone,Employed part-time,"$20-29,000",25,4,37,17,15,2,17,9,59,4,10,8,14,30,159,40,non-Hispanic,White/Caucasian
+1223,CLBP,67,Male,19.79,6,Graduate school,Married,With spouse/partner only,Employed part-time,"$50-99,000",9,2,19,1,1,0,3,0,1,0,2,2,1,38,178,19,non-Hispanic,White/Caucasian
+1224,CLBP,61,Male,22.98,17,College,Never married,Alone,Unemployed,"$20-29,000",20,2,22,3,3,0,4,3,0,3,2,4,4,33,205,34,non-Hispanic,White/Caucasian
+1225,CLBP,46,Male,27.98,17,College,Married,With spouse/partner and other family,Employed full-time,Prefer not to say,15,4,35,17,12,5,32,8,17,14,6,10,13,33,207,28,non-Hispanic,White/Caucasian
+1226,CLBP,39,Female,21.76,16,College,Never married,"With family, no spouse/partner",Unemployed,"$30-39,000",1,8,73,14,12,2,34,0,67,14,9,17,8,46,191,33,non-Hispanic,Black or African American
+1227,CLBP,67,Male,30.71,18,High school or vocational school,Never married,With roommates only,Unemployed,"$50-99,000",20,4,31,10,7,3,1,5,16,3,2,2,0,33,214,30,non-Hispanic,Black or African American
+1228,CLBP,66,Male,32.19,20,Graduate school,Never married,With spouse/partner only,Unemployed,"$50-99,000",15,3,27,7,6,1,9,0,2,7,2,4,9,34,211,30,non-Hispanic,White/Caucasian
+1229,CLBP,43,Male,45.77,14,College,Married,With spouse/partner and other family,Employed full-time,"$50-99,000",10,2,12,,,,2,0,0,0,1,0,4,35,198,10,non-Hispanic,White/Caucasian
+1230,CLBP,41,Male,47.14,17,College,Married,With spouse/partner and other family,Employed full-time,"$100-199,000",1.5,2,14,10,9,1,17,3,0,8,1,2,7,42,181,22,non-Hispanic,White/Caucasian
+1231,CLBP,71,Male,23.72,20,O.D.,Married,With spouse/partner only,Unemployed,Prefer not to say,20,4,50,10,10,0,0,5,3,3,0,7,8,37,208,27,non-Hispanic,White/Caucasian
+1232,CLBP,41,Male,32.19,23,PhD,Married,With spouse/partner and other family,Employed full-time,"$100-199,000",15,4,63,11,9,2,3,6,12,17,8,9,8,44,229,37,non-Hispanic,White/Caucasian
+1233,CLBP,50,Female,34.7,18,College,Married,With spouse/partner and other family,Employed full-time,Prefer not to say,10,4,17,23,16,7,30,4,2,8,1,4,8,34,201,28,non-Hispanic,White/Caucasian
+1234,CLBP,62,Female,23.69,13,College,Married,With spouse/partner only,Employed full-time,"$100-199,000",3.5,2,23,15,12,3,5,6,4,1,1,5,1,38,206,32,non-Hispanic,White/Caucasian
+1235,CLBP,67,Female,43.93,19,Graduate school,Never married,With spouse/partner only,Employed part-time,"$100-199,000",40,2,30,8,8,0,7,9,0,4,0,1,7,35,192,5,non-Hispanic,White/Caucasian
+1236,CLBP,69,Female,29.08,13,High school or vocational school,Married,With spouse/partner only,Employed full-time,Prefer not to say,8,0,1,12,11,1,10,0,0,8,0,7,11,41,208,37,non-Hispanic,White/Caucasian
+1237,CLBP,42,Female,22.83,21,Graduate school,Married,With spouse/partner and other family,Employed part-time,"$100-199,000",1.5,4,15,11,10,1,21,5,26,11,3,4,17,38,211,32,non-Hispanic,White/Caucasian
+1239,CLBP,49,Male,26.94,19,Graduate school,Divorced,"With family, no spouse/partner",Employed full-time,Prefer not to say,20,6,62,10,6,4,8,5,57,16,11,8,6,33,216,22,non-Hispanic,Asian
+1240,CLBP,53,Male,38.39,18,College,Married,With spouse/partner only,Employed full-time,Prefer not to say,10,3,23,2,2,0,19,4,3,8,3,1,10,36,206,26,non-Hispanic,Black or African American
+1241,CLBP,70,Male,41.23,17,College,Married,With spouse/partner only,Employed part-time,Prefer not to say,30,5,50,16,14,2,25,7,5,12,6,3,8,35,197,20,non-Hispanic,White/Caucasian
+1242,CLBP,69,Male,33.37,13,College,Widowed,Alone,Unemployed,Prefer not to say,9,1,15,2,2,0,1,2,0,0,0,3,9,35,172,35,non-Hispanic,White/Caucasian
+1243,CLBP,49,Male,28.24,18,Graduate school,Never married,With spouse/partner only,Employed full-time,Prefer not to say,2,3,28,2,2,0,9,4,12,8,5,1,15,32,211,16,non-Hispanic,Black or African American
+1244,CLBP,46,Female,31.01,18,Graduate school,Divorced,"With family, no spouse/partner",Employed full-time,"$100-199,000",1.5,5,50,17,16,1,6,0,12,8,4,2,4,37,197,27,non-Hispanic,White/Caucasian
+1245,CLBP,42,Male,31.45,14,College,Married,With spouse/partner and other family,Employed full-time,"$100-199,000",3,5,10,10,10,0,21,3,5,8,6,7,6,38,185,30,non-Hispanic,White/Caucasian
+1246,CLBP,53,Female,24.02,18,Graduate school,Married,With spouse/partner and other family,Employed part-time,Unknown,20,4,25,18,16,2,12,1,23,10,1,9,3,37,215,44,non-Hispanic,White/Caucasian
+1247,CLBP,55,Female,22.86,12,High school or vocational school,Married,With spouse/partner only,Employed full-time,"$100-199,000",20,8,70,19,16,3,19,7,12,14,3,11,11,33,228,47,non-Hispanic,White/Caucasian
+1248,CLBP,65,Female,16.95,19,Graduate school,Never married,Alone,Unemployed,"$50-99,000",25,6,58,14,11,3,7,2,0,2,3,1,10,40,225,23,non-Hispanic,White/Caucasian
+1249,CLBP,58,Male,26.63,19,Graduate school,Married,With spouse/partner only,Employed full-time,"$100-199,000",5,3,33,2,2,0,1,0,0,0,0,2,2,36,191,5,non-Hispanic,White/Caucasian
+1250,CLBP,60,Male,26.31,20,Graduate school,Married,With spouse/partner only,Employed full-time,Prefer not to say,5,3,16,16,12,4,27,5,8,12,11,12,6,43,201,30,non-Hispanic,White/Caucasian
+1251,CLBP,63,Male,28.58,18,College,Married,With spouse/partner only,Unemployed,"$100-199,000",2,2,16,9,7,2,13,7,17,14,7,4,3,45,181,35,non-Hispanic,White/Caucasian
+1252,CLBP,63,Female,24.89,17,College,Married,With spouse/partner and other family,Employed full-time,Prefer not to say,6,2,14,21,18,3,13,5,3,3,2,6,8,36,202,26,non-Hispanic,White/Caucasian
+1253,CLBP,57,Female,22.59,20,Graduate school,Married,With spouse/partner only,Employed full-time,Prefer not to say,30,5,50,24,19,5,0,3,0,3,0,4,4,41,208,16,non-Hispanic,White/Caucasian
+1254,CLBP,59,Male,33.08,16,College,Married,With spouse/partner only,Employed full-time,">/= $200,000",4,2,18,23,21,2,12,0,3,4,3,6,13,42,205,25,non-Hispanic,White/Caucasian
+1256,CLBP,57,Female,30.55,18,College,Married,With spouse/partner only,Unemployed,Prefer not to say,5,3,31,5,5,0,0,0,0,0,0,4,4,36,188,21,non-Hispanic,Black or African American
+1258,CLBP,77,Female,31.27,12,High school or vocational school,Married,With spouse/partner only,Unemployed,Prefer not to say,10,1,9,5,4,1,1,0,0,2,1,4,3,37,201,12,non-Hispanic,White/Caucasian
+1259,CLBP,51,Female,31.92,16,College,Divorced,"With family, no spouse/partner",Employed full-time,Prefer not to say,7,3,41,13,11,2,37,10,18,0,6,12,11,38,193,37,non-Hispanic,White/Caucasian
+1260,CLBP,73,Male,27.51,19,Graduate school,Married,With spouse/partner only,Unemployed,"$50-99,000",35,2,3,6,4,2,3,4,24,9,7,11,5,36,194,36,non-Hispanic,White/Caucasian
+1262,CLBP,70,Female,25.32,18,College,Married,With spouse/partner only,Unemployed,Unknown,2,2,11,14,12,2,5,6,50,3,6,8,6,34,203,29,Hispanic or Latino,White/Caucasian
+1263,CLBP,75,Male,30.27,18,PhD,Divorced,With spouse/partner only,Unemployed,"$50-99,000",4.5,3,28,9,9,0,7,14,12,0,0,5,3,33,230,22,non-Hispanic,White/Caucasian
+1264,CLBP,59,Female,28.53,29,Graduate school,Married,With spouse/partner and other family,Employed full-time,Prefer not to say,2,5,39,3,3,0,3,1,3,4,0,1,1,39,214,26,non-Hispanic,Asian
+1266,CLBP,68,Male,25.68,14,College,Married,With spouse/partner only,Unemployed,"$50-99,000",4.5,3,16,11,10,1,8,2,3,0,1,3,5,40,209,13,non-Hispanic,White/Caucasian
+1267,CLBP,63,Female,21.3,12,High school or vocational school,Married,With spouse/partner only,Unemployed,"$100-199,000",4,0,2,5,5,0,16,0,2,3,4,9,0,39,189,44,non-Hispanic,White/Caucasian
+1268,CLBP,55,Female,33.3,16,College,Married,With spouse/partner only,Employed full-time,"$100-199,000",1,0,1,6,6,0,5,0,8,6,0,9,0,44,204,13,non-Hispanic,White/Caucasian
+1269,CLBP,53,Female,25.49,16,College,Divorced,Alone,Employed full-time,Prefer not to say,1,7,79,16,14,2,7,2,57,12,3,5,10,37,182,31,non-Hispanic,Black or African American
+1270,CLBP,43,Male,31.71,16,College,Married,With spouse/partner only,Employed full-time,"$100-199,000",20,4,29,10,9,1,2,2,3,0,0,1,3,34,208,13,non-Hispanic,White/Caucasian
+1271,CLBP,68,Female,26.57,12,High school or vocational school,Married,With spouse/partner only,Unemployed,"$30-39,000",30,2,24,4,4,0,1,0,4,4,1,4,0,38,229,17,non-Hispanic,White/Caucasian
+1272,CLBP,48,Female,29.29,16,College,Married,With spouse/partner and other family,Employed part-time,Prefer not to say,5,3,25,8,7,1,5,6,18,12,2,13,17,35,195,52,non-Hispanic,White/Caucasian
+13002,CLBP,65,Male,25.39,14,College,Widowed,Alone,Unemployed,Prefer not to say,,2,22,2,2,0,0,0,0,2,0,2,2,41,200,7,non-Hispanic,White/Caucasian
+13003,CLBP,65,Female,21.03,14,College,Married,With spouse/partner only,Employed part-time,Prefer not to say,3,4,25,13,12,1,13,1,0,6,4,13,9,37,223,40,non-Hispanic,White/Caucasian
+13004,CLBP,65,Female,22.13,14,College,Married,With spouse/partner only,Unemployed,"<$20,000",10,6,50,,,,2,3,3,2,,,,46,,13,non-Hispanic,White/Caucasian
+1501,HC,61,Male,31.01,14,College,Never married,Alone,Unemployed,"$40-49,000",,0,1,,,,,,3,2,1,0,,33,215,,non-Hispanic,White/Caucasian
+1502,HC,65,Male,27.97,18,Graduate school,Never married,Alone,Employed part-time,"$20-29,000",,0,0,,,,,,0,4,0,0,,37,205,,non-Hispanic,White/Caucasian
+1503,HC,51,Female,36.33,16,Graduate school,Married,With spouse/partner and other family,Employed part-time,"$50-99,000",,0,1,,,,,,1,9,1,3,,32,186,,Hispanic or Latino,White/Caucasian
+1504,HC,57,Female,24.63,16,College,Divorced,Alone,Employed full-time,"$50-99,000",,0,0,,,,,,0,6,3,4,,36,221,,Hispanic or Latino,White/Caucasian
+1505,HC,52,Female,21.46,16,College,Separated,"With family, no spouse/partner",Employed part-time,"$50-99,000",,0,0,,,,,,1,0,0,4,,42,220,,non-Hispanic,White/Caucasian
+1506,HC,39,Female,36.76,12,High school or vocational school,Married,With spouse/partner and other family,Unemployed,"$50-99,000",,0,0,,,,,,1,6,1,4,,38,177,,non-Hispanic,White/Caucasian
+1507,HC,59,Male,30.24,17,Graduate school,Married,With spouse/partner only,Unemployed,Prefer not to say,,0,1,,,,,,3,2,1,8,,40,182,,non-Hispanic,White/Caucasian
+1508,HC,56,Male,27.92,16,College,Married,With spouse/partner only,Employed full-time,"$100-199,000",,0,0,,,,,,0,2,3,2,,37,162,,non-Hispanic,Black or African American
+1509,HC,78,Female,33.28,14,College,Married,With spouse/partner only,Unemployed,Unknown,,0,1,,,,,,0,10,3,1,,39,199,,non-Hispanic,White/Caucasian
+1510,HC,52,Male,30.13,17,Graduate school,Married,With spouse/partner and other family,Unemployed,"$100-199,000",,0,0,,,,,,0,0,0,1,,36,211,,non-Hispanic,White/Caucasian
+1511,HC,55,Male,31.48,18,Graduate school,Married,With spouse/partner and other family,Employed full-time,Prefer not to say,,0,5,,,,,,3,0,1,3,,36,202,,non-Hispanic,White/Caucasian
+1512,HC,48,Female,29.95,16,College,Divorced,With spouse/partner and other family,Employed full-time,"$50-99,000",,0,3,,,,,,0,7,1,5,,37,188,,non-Hispanic,White/Caucasian
+1513,HC,66,Female,26.87,18,Graduate school,Never married,Alone,Employed part-time,Prefer not to say,,0,2,,,,,,11,6,2,1,,39,210,,non-Hispanic,Black or African American
+1514,HC,55,Male,38.39,18,Graduate school,Never married,Alone,Employed full-time,Prefer not to say,,2,0,,,,,,2,4,1,1,,31,220,,non-Hispanic,White/Caucasian
+1515,HC,54,Female,24.79,13,College,Married,With spouse/partner and other family,Employed full-time,Prefer not to say,,0,0,,,,,,2,6,0,1,,37,196,,non-Hispanic,White/Caucasian
+1516,HC,55,Female,27.29,18,Graduate school,Divorced,Alone,Employed full-time,"$50-99,000",,1,0,,,,,,0,0,1,1,,35,221,,non-Hispanic,White/Caucasian
+1517,HC,48,Female,24.18,18,Graduate school,Married,With spouse/partner and other family,Employed full-time,"$100-199,000",,0,1,,,,,,1,4,1,2,,35,210,,non-Hispanic,White/Caucasian
+1518,HC,45,Female,20.52,16,College,Married,With spouse/partner only,Employed full-time,"$100-199,000",,0,2,,,,,,5,12,1,3,,36,214,,non-Hispanic,White/Caucasian
+1519,HC,54,Female,32.59,16,College,Married,With spouse/partner only,Unemployed,"$50-99,000",,0,3,,,,,,2,2,2,0,,39,203,,non-Hispanic,White/Caucasian
+1521,HC,54,Female,24.13,18,Graduate school,Married,With spouse/partner and other family,Employed full-time,"$50-99,000",,0,1,,,,,,5,6,0,9,,36,220,,non-Hispanic,White/Caucasian
+1522,HC,41,Male,21.87,16,Graduate school,Other,With roommates only,Employed part-time,Prefer not to say,,0,0,,,,,,5,6,1,3,,38,206,,Hispanic or Latino,White/Caucasian
+1524,HC,54,Female,18.19,19,M.D.,Married,With spouse/partner and other family,Employed full-time,">/= $200,000",,0,2,,,,,,1,0,1,2,,40,225,,non-Hispanic,White/Caucasian
+1525,HC,46,Female,23.34,18,Graduate school,Married,With spouse/partner and other family,Employed full-time,">/= $200,000",,0,0,,,,,,0,5,0,4,,37,228,,non-Hispanic,White/Caucasian
+1526,HC,75,Female,,16,College,Married,With spouse/partner and other family,Unemployed,Prefer not to say,,0,0,,,,,,0,2,2,1,,39,182,,non-Hispanic,White/Caucasian
+1527,HC,62,Female,20.94,21,PhD,Married,With spouse/partner only,Employed full-time,Prefer not to say,,0,0,,,,,,0,2,1,6,,36,218,,non-Hispanic,White/Caucasian
+1528,HC,54,Female,22.55,20,Graduate school,Married,With spouse/partner only,Employed full-time,Prefer not to say,,0,0,,,,,,0,3,0,2,,34,206,,non-Hispanic,White/Caucasian
+1529,HC,42,Male,29.44,16,College,Married,With spouse/partner and other family,Employed full-time,"$50-99,000",,1,1,,,,,,0,0,0,1,,37,217,,non-Hispanic,White/Caucasian
+1530,HC,57,Female,24.03,25,PhD,Married,With spouse/partner only,Employed full-time,"$100-199,000",,0,0,,,,,,0,6,1,1,,39,193,,non-Hispanic,White/Caucasian
+1531,HC,52,Female,26.57,16,College,Married,With spouse/partner and other family,Employed full-time,"$100-199,000",,0,1,,,,,,10,6,1,5,,37,203,,non-Hispanic,White/Caucasian
+1532,HC,57,Male,29.49,25,M.D.,Married,With spouse/partner and other family,Employed full-time,Prefer not to say,,0,0,,,,,,0,1,1,0,,37,206,,non-Hispanic,White/Caucasian
+1533,HC,47,Female,23,18,Graduate school,Married,With spouse/partner only,Employed full-time,Prefer not to say,,0,2,,,,,,1,0,0,2,,45,197,,non-Hispanic,Asian
+1401,MDD,58,Male,27.56,20,Graduate school,Never married,Alone,Employed full-time,"$50-99,000",,0,0,,,,,,71,30,7,,,33,228,31,non-Hispanic,White/Caucasian
+1402,MDD,71,Female,23.96,16,College,Married,With spouse/partner only,Unemployed,"$50-99,000",,0,7,,,,,,82,34,10,,,33,192,57,non-Hispanic,White/Caucasian
+1403,MDD,63,Female,36.27,13,High school or vocational school,Married,With spouse/partner only,Unemployed,"$50-99,000",,2,10,,,,,,29,28,7,,,34,202,57,non-Hispanic,White/Caucasian
+1404,MDD,67,Male,24.13,20,Graduate school,Divorced,Alone,Employed part-time,Prefer not to say,,0,0,,,,,,18,15,0,,,36,222,35,non-Hispanic,White/Caucasian
+1405,MDD,60,Male,31.92,21,PhD,Married,With spouse/partner only,Employed full-time,">/= $200,000",,1,10,,,,,,70,7,7,,,34,244,42,non-Hispanic,Native Hawaiian or Pacific Islander
+1406,MDD,67,Male,34.06,16,College,Married,With spouse/partner and other family,Unemployed,Prefer not to say,,3,27,,,,,,97,31,15,,,33,169,52,non-Hispanic,White/Caucasian
+1407,MDD,66,Male,36.15,18,Graduate school,Married,With spouse/partner only,Employed full-time,"$100-199,000",,1,6,,,,,,58,12,5,,,32,207,35,non-Hispanic,White/Caucasian
+1408,MDD,70,Female,31.38,18,Graduate school,Married,With spouse/partner only,Unemployed,"$50-99,000",,0,0,,,,,,30,25,5,,,34,224,50,non-Hispanic,White/Caucasian
+1409,MDD,59,Female,23.23,14,High school or vocational school,Married,With spouse/partner and other family,Employed part-time,"$50-99,000",,0,0,,,,,,84,29,8,,,34,200,62,non-Hispanic,White/Caucasian
+1410,MDD,59,Male,36.18,17,Graduate school,Married,With spouse/partner only,Employed full-time,Prefer not to say,,1,8,,,,,,23,18,6,,,34,198,26,non-Hispanic,White/Caucasian
+1411,MDD,53,Female,34.3,14,College,Divorced,"With family, no spouse/partner",Employed full-time,"$50-99,000",,0,0,,,,,,72,33,12,,,40,185,58,non-Hispanic,White/Caucasian
+1412,MDD,67,Female,31.7,19,Graduate school,Married,Alone,Employed full-time,Prefer not to say,,0,0,,,,,,39,13,4,,,38,213,33,Hispanic or Latino,White/Caucasian
+1413,MDD,58,Female,21.3,17,College,Never married,Alone,Unemployed,"<$20,000",,0,2,,,,,,78,40,10,,,38,232,40,non-Hispanic,White/Caucasian
+1414,MDD,39,Male,27.11,20,Graduate school,Divorced,Alone,Employed full-time,"$50-99,000",,0,1,,,,,,29,15,9,,,40,210,28,Hispanic or Latino,White/Caucasian
+1415,MDD,56,Male,27.6,18,College,Married,With spouse/partner only,Employed part-time,Prefer not to say,,0,2,,,,,,62,14,4,,,35,214,37,non-Hispanic,Black or African American
+1416,MDD,53,Female,25.82,18,Graduate school,Never married,With spouse/partner only,Employed full-time,"$100-199,000",,0,1,,,,,,37,17,4,,,38,208,33,non-Hispanic,White/Caucasian
+1417,MDD,53,Female,25.68,15,College,Married,With spouse/partner and other family,Employed full-time,"$100-199,000",,0,54,,,,,,76,35,15,,,37,192,51,non-Hispanic,White/Caucasian
+1419,MDD,58,Female,26.43,18,Graduate school,Married,With spouse/partner and other family,Employed full-time,">/= $200,000",,0,2,,,,,,86,40,17,,,38,181,36,non-Hispanic,White/Caucasian
+1420,MDD,65,Female,37.77,16,College,Never married,Alone,Unemployed,Prefer not to say,,1,63,,,,,,73,31,8,,,39,204,39,non-Hispanic,White/Caucasian
+1421,MDD,43,Female,23.72,20,College,Married,With spouse/partner and other family,Employed part-time,"$50-99,000",,0,23,,,,,,23,28,11,,,39,223,60,non-Hispanic,White/Caucasian
+1422,MDD,68,Female,34.2,16,College,Divorced,Alone,Employed full-time,"$50-99,000",,1,12,,,,,,59,28,14,,,35,197,43,non-Hispanic,White/Caucasian
+1426,MDD,52,Male,38.13,14,College,Never married,"With family, no spouse/partner",Unemployed,"$20-29,000",,0,0,,,,,,39,7,8,,,36,230,38,non-Hispanic,White/Caucasian
+1427,MDD,51,Female,28.34,20,Graduate school,Married,With spouse/partner and other family,Unemployed,Prefer not to say,,0,6,,,,,,81,19,4,,,33,263,58,Hispanic or Latino,White/Caucasian
+1428,MDD,65,Male,38.77,17,Graduate school,Married,With spouse/partner only,Employed full-time,"$100-199,000",,0,1,,,,,,37,13,3,,,37,170,21,non-Hispanic,White/Caucasian
+1429,MDD,75,Male,28.94,16,College,Widowed,Alone,Unemployed,Prefer not to say,,0,0,,,,,,44,6,3,,,39,182,23,non-Hispanic,White/Caucasian
+1431,MDD,42,Male,42.72,14,College,Never married,With roommates only,Employed full-time,"$50-99,000",,0,2,,,,,,0,19,6,,,38,151,35,non-Hispanic,White/Caucasian
+1432,MDD,64,Female,32.03,12,College,Never married,Alone,Employed full-time,"$50-99,000",,0,2,,,,,,56,23,7,,,35,216,21,non-Hispanic,Black or African American
+1435,MDD,65,Female,29.52,15,College,Married,With spouse/partner only,Unemployed,Prefer not to say,,0,0,,,,,,8,23,7,,,34,159,22,non-Hispanic,White/Caucasian
+1436,MDD,51,Female,30.72,18,Graduate school,Never married,"With family, no spouse/partner",Employed full-time,Prefer not to say,,0,3,,,,,,5,2,0,,,43,180,14,non-Hispanic,Black or African American
+1437,MDD,60,Male,35.26,14,College,Divorced,Alone,Employed full-time,Prefer not to say,,0,5,,,,,,56,15,8,,,38,136,49,non-Hispanic,White/Caucasian
+1438,MDD,55,Female,34.75,16,College,Never married,Alone,Unemployed,Prefer not to say,,0,2,,,,,,82,33,13,,,35,221,46,non-Hispanic,White/Caucasian
+1439,MDD,63,Female,27.46,12,High school or vocational school,Never married,Alone,Employed full-time,Prefer not to say,,2,9,,,,,,60,38,15,,,35,156,36,non-Hispanic,White/Caucasian
+1442,MDD,51,Female,29.05,12,College,Married,With spouse/partner and other family,Unemployed,"$50-99,000",,4,14,,,,,,75,37,14,,,33,231,69,non-Hispanic,White/Caucasian

@@ -51,6 +51,8 @@ Each transcript is named `<Study ID>_<Dx>.txt` (e.g. `1202_CLBP.txt`), `Dx` ∈ 
 
 `Data/clinical/clbp_clinical.csv` / `mdd_clinical.csv` hold the validated clinical questionnaire scores (NRS, VAS, MPQ, PDQ, CSI, PCS, RMDQ, MADRS, HADS, etc.) per `Study ID`, one file per cohort — also de-identified and included.
 
+`Data/demographics/demographics.csv` holds one row per subject (all three cohorts) with age, sex, race, ethnicity, marital/employment status, income, education, and cognition score (TICS) — also de-identified and included.
+
 ## Preprocessing (`Code/preprocessing/`)
 
 Recordings were captured in Zoom with each speaker on a separate audio channel, so no speaker diarization is needed.
@@ -95,6 +97,8 @@ These two scripts require a live watsonx project with that model deployed; they 
 15. **`figs1_data_amount.py`** — reproduces Fig. S1 (speech duration + word count by cohort) using `boxplots.py` + `Results/data_amount.csv`. All three pairwise comparisons are p < 0.001 for both metrics, so brackets are omitted from the plot (`pairwise_comparisons=None`) and stated once in the figure caption instead. Saves `Figures/figs1_data_amount.png`.
 16. **`prepare_human_transcripts.py`** — one-time conversion of the 15 manually-transcribed reference interviews (source Word doc, not redistributed) into `Data/transcripts/human/`. Not part of the regular pipeline; its *output* is what's versioned.
 17. **`wer_transcription_accuracy.py`** — Word Error Rate of the automatic transcripts (`common/`) against `Data/transcripts/human/`, via `jiwer`. Across the 12 subjects with a usable automatic transcript: median WER 10.4%, mean 19.4% (mean pulled up by a 5-subject cluster at 32-42% vs. the rest at 2-12% — no subject in between; worth a closer look if audio ever becomes available again, since it isn't now). 3 subjects (1221, 1241, 1406) are flagged and excluded from that summary: their automatic `common/` transcript matches the human reference at the start and end but is missing two of the four common-section topics entirely (not misplaced into `condition_specific/` either) — a real defect in the earlier LLM-based transcript-splitting step for these 3 (it dropped a chunk instead of extracting it faithfully, and it wasn't caught by manual review against the source audio at the time), not a transcription (Whisper) error. Their full-reference WER (0.92-0.97) is therefore mostly deletions unrelated to transcription quality. `wer_matched_span` reconstructs a fair reference by splicing the human text to the two segments the automatic transcript actually covers (boundaries manually identified, `MANUALLY_VERIFIED_SPANS`), landing at 0.30-0.44 — much closer to the rest of the cohort, confirming the inflated raw WER was mostly the splitting bug, not worse transcription. The same undetected failure mode could exist in other subjects' `common/`/`condition_specific/` files outside this 15-subject validation set. Saves `Results/wer/wer_by_subject.csv`.
+18. **`confound_analysis.py`** — tests whether demographic/clinical-encounter variables (age, sex, race, ethnicity, marital/employment status, income, education, word count, TICS) are associated with the nine LLM metrics, per cohort (Spearman for continuous, Mann-Whitney U for binary, Kruskal-Wallis H for multi-level categorical; FDR within each cohort). A test is skipped, not "not significant", when fewer than two categories have ≥3 participants in that cohort (Race in HC: 28 White/Caucasian vs. 2 Black or African American vs. 1 Asian; Ethnicity in CLBP: 65 non-Hispanic vs. 2 Hispanic or Latino) — `run_cohort_tests` simply produces no row for that (confound, metric) pair rather than a fabricated p-value.
+19. **`figs_categorical_confounds_heatmap.py`** — reproduces the categorical-confounds heatmap (Supplement; exact figure number TBD, rename this file once known) using `confound_analysis.py`. Skipped tests are rendered as gray "n/a" cells, not left to fall through to the significance-marker logic: the original version checked `if piv_sig.loc[conf, met]:` directly on a pivoted column that's `NaN` for skipped tests, and `bool(float('nan'))` is `True` in Python — so untested cells were silently drawn with a `*` as if FDR-significant. Saves `Figures/figs_categorical_confounds_heatmap.png`.
 
 Run from `run_llm_scoring.ipynb` / `run_word_counts.ipynb`, or directly:
 
@@ -115,10 +119,11 @@ python fig5_reddit_comparison.py
 python figs1_data_amount.py
 python prepare_human_transcripts.py
 python wer_transcription_accuracy.py
+python figs_categorical_confounds_heatmap.py
 ```
 
 ---
 
 **Author:** Raquel (Kely) Norel, PhD
 **Domain:** Computational Psychiatry / NLP / LLM-Based Clinical Assessment
-**Status:** 🚧 In progress. Preprocessing, the LLM-scoring pipeline, precomputed LLM scores and clinical data, Fig. 2, Fig. 3, Fig. 4 / eFigure 2 (all panels), Fig. 5 (panels A-C), Fig. S1, and WER validation against 15 manual reference transcripts are in place. Remaining: classification analysis and the 100-run output variability check at `temperature=0` (SD/CV/ICC1).
+**Status:** 🚧 In progress. Preprocessing, the LLM-scoring pipeline, precomputed LLM scores and clinical/demographic data, Fig. 2, Fig. 3, Fig. 4 / eFigure 2 (all panels), Fig. 5 (panels A-C), Fig. S1, WER validation against 15 manual reference transcripts, and the categorical-confounds heatmap are in place. Remaining: classification analysis and the 100-run output variability check at `temperature=0` (SD/CV/ICC1).

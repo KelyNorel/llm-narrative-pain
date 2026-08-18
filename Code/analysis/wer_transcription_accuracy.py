@@ -14,6 +14,18 @@ transcriber marked "[uncomprehensive word]" (could not make out).
 Insertions alone don't distinguish these two cases; that takes reading
 the specific transcript.
 
+`substitution_rate` (substitutions / human_words) is the metric to
+look at for genuine transcription-quality differences between
+subjects, since it isolates mistranscribed words from the content-loss
+deletions that dominate for the 3 flagged subjects. It shows a clean
+split, not a gradient: 5 subjects (1224, 1232, 1402, 1407, 13002) at
+18-30%, everyone else under 8%. All 5 have distinctive/uncommon
+vocabulary in their transcripts (proper nouns, hobby-specific jargon)
+and one (1232) is a self-identified UK speaker -- plausible
+contributors given Whisper *base* is the smallest, least robust model
+in the family, but unverifiable without the audio (background noise,
+mic distance, speaking rate could also matter, and aren't ruled out).
+
 The automatic transcript compared against is common/ alone, not
 common/ + condition_specific/ concatenated: empirically, common/ alone
 gives a much lower (sensible) WER for every subject where a fair
@@ -159,6 +171,7 @@ def compute_wer() -> pd.DataFrame:
             "dx": dx,
             "wer": round(out.wer, 3),
             "substitutions": out.substitutions,
+            "substitution_rate": round(out.substitutions / human_words, 3),
             "deletions": out.deletions,
             "insertions": out.insertions,
             "hits": out.hits,
