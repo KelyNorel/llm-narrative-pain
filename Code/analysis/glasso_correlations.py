@@ -31,6 +31,29 @@ def apply_glasso(data: pd.DataFrame, alpha: float = None, random_state: int = 42
     return precision, covariance, alpha
 
 
+def select_alpha_1se_band(data: pd.DataFrame) -> tuple:
+    """5-fold GraphicalLassoCV's alpha path, reduced to the classic 1-SE
+    rule: the CV-optimal alpha, plus the widest band of alphas whose mean
+    CV score is within one standard error of the optimum. Returns
+    (alpha_low, alpha_optimal, alpha_high).
+    """
+    X_ranked = np.apply_along_axis(rankdata, 0, data.values)
+    model = GraphicalLassoCV(cv=5, alphas=20, max_iter=100)
+    model.fit(X_ranked)
+
+    cv_results = model.cv_results_
+    alphas = np.array(cv_results["alphas"])
+    mean_score = np.array(cv_results["mean_test_score"])
+    std_score = np.array(cv_results["std_test_score"])
+    se_score = std_score / np.sqrt(model.cv)
+
+    best_idx = mean_score.argmax()
+    best_alpha, best_score, best_se = alphas[best_idx], mean_score[best_idx], se_score[best_idx]
+
+    band = alphas[mean_score >= best_score - best_se]
+    return band.min(), best_alpha, band.max()
+
+
 def precision_to_partial_correlation(precision: np.ndarray) -> np.ndarray:
     d = np.sqrt(np.diag(precision))
     partial_corr = -precision / np.outer(d, d)
@@ -83,6 +106,34 @@ def bootstrap_pvalues(data: pd.DataFrame, alpha: float, n_bootstrap: int = 1000,
     np.fill_diagonal(direct_pvals, 1.0)
     np.fill_diagonal(partial_pvals, 1.0)
     return direct_pvals, partial_pvals
+
+
+def alpha_sensitivity(data: pd.DataFrame, alphas: list, n_bootstrap: int = 1000,
+                       corr_threshold: float = 0.01, fdr_alpha: float = 0.05) -> list:
+    """Partial correlation network at each of `alphas`: partial
+    correlation matrix, FDR-corrected p-values, and which edges are
+    FDR-significant. Returns a list of dicts, one per alpha, each with
+    keys alpha, partial_corr, p_fdr, reject, feature_names."""
+    feature_names = data.columns.tolist()
+    triu = np.triu_indices(len(feature_names), k=1)
+
+    results = []
+    for alpha in alphas:
+        precision, _, _ = apply_glasso(data, alpha=alpha)
+        partial_corr = precision_to_partial_correlation(precision)
+        _, partial_pvals = bootstrap_pvalues(data, alpha, n_bootstrap=n_bootstrap, threshold=corr_threshold)
+
+        reject, p_fdr_flat, _, _ = multipletests(partial_pvals[triu], alpha=fdr_alpha, method="fdr_bh")
+        p_fdr = np.ones_like(partial_corr)
+        p_fdr[triu] = p_fdr[triu[::-1]] = p_fdr_flat
+        reject_matrix = np.zeros_like(partial_corr, dtype=bool)
+        reject_matrix[triu] = reject_matrix[triu[::-1]] = reject
+
+        results.append(dict(
+            alpha=alpha, partial_corr=partial_corr, p_fdr=p_fdr,
+            reject=reject_matrix, feature_names=feature_names,
+        ))
+    return results
 
 
 def plot_glasso_with_fdr(

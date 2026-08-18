@@ -1,0 +1,4 @@
+alpha,Band,zeroed_edges,sparsity_pct,fdr_sig_edges
+7.69,Lower bound (1-SE),10/36,27.8,3/36
+25.11,CV-optimal,14/36,38.9,3/36
+53.45,Upper bound (1-SE),13/36,36.1,2/36
