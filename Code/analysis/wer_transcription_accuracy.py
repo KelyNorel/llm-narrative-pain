@@ -1,6 +1,19 @@
 """Word Error Rate (WER) of the automatic (Whisper) transcripts against
 15 manually-transcribed reference interviews (Data/transcripts/human/).
 
+`substitutions`/`deletions`/`insertions`/`hits` (from
+jiwer.process_words) break WER down by error type: substitutions are
+genuine misheard words; deletions are words in the human reference
+that the automatic transcript is missing (this is what dominates for
+the 3 flagged subjects below, quantifying the content-loss story);
+insertions are words the automatic transcript produced with no
+reference counterpart -- usually genuine ASR errors (hallucinated or
+repeated words), but not always: in at least one observed case an
+insertion was Whisper correctly transcribing audio the human
+transcriber marked "[uncomprehensive word]" (could not make out).
+Insertions alone don't distinguish these two cases; that takes reading
+the specific transcript.
+
 The automatic transcript compared against is common/ alone, not
 common/ + condition_specific/ concatenated: empirically, common/ alone
 gives a much lower (sensible) WER for every subject where a fair
@@ -134,6 +147,8 @@ def compute_wer() -> pd.DataFrame:
         word_ratio = automatic_words / human_words
         flagged = not (WORD_COUNT_RATIO_THRESHOLD <= word_ratio <= 1 / WORD_COUNT_RATIO_THRESHOLD)
 
+        out = jiwer.process_words(reference, hypothesis)
+
         wer_matched_span = None
         if flagged and f"{study_id}_{dx}" in MANUALLY_VERIFIED_SPANS:
             matched_ref = build_matched_span_reference(reference, MANUALLY_VERIFIED_SPANS[f"{study_id}_{dx}"])
@@ -142,8 +157,12 @@ def compute_wer() -> pd.DataFrame:
         rows.append({
             "study_id": study_id,
             "dx": dx,
-            "wer": jiwer.wer(reference, hypothesis),
-            "wer_matched_span": wer_matched_span,
+            "wer": round(out.wer, 3),
+            "substitutions": out.substitutions,
+            "deletions": out.deletions,
+            "insertions": out.insertions,
+            "hits": out.hits,
+            "wer_matched_span": round(wer_matched_span, 3) if wer_matched_span is not None else None,
             "human_words": human_words,
             "automatic_words": automatic_words,
             "flagged": flagged,
