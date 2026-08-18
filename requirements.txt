@@ -12,7 +12,9 @@ matplotlib
 seaborn
 scipy
 statsmodels
-scikit-learn
+scikit-learn==1.6.1  # pinned: the Fig. S3 Random Forest confusion matrices are
+                     # not bit-exact across scikit-learn versions (near-tied
+                     # hyperparameter combos in grid search can break differently)
 tqdm
 Pillow
 jiwer
