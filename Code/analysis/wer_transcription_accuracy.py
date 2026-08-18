@@ -17,20 +17,33 @@ human reference closely, but roughly the middle two of four
 common-section topics (what the subject enjoys doing; a recent dream)
 are missing entirely -- not present in condition_specific/ either, so
 the content wasn't misplaced, it's just gone, and each drop is marked
-with a literal "..." in the text. This points to the earlier LLM-based
-transcript-splitting step dropping a chunk of the source transcript
-for these 3 subjects specifically, not a transcription (Whisper) error.
+with a literal "..." in the text.
+
+This is a real defect in the earlier LLM-based transcript-splitting
+step for these 3 subjects specifically (it dropped a chunk of the
+source transcript instead of faithfully extracting it), not a
+transcription (Whisper) error, and not something this repo's authors
+caught by manually reviewing the split output against the source audio
+at the time. It's surfaced here, after the fact, only because these 3
+happen to be among the 15 with an independent human reference to catch
+it against; the same failure mode could be present, undetected, in
+other subjects' common/condition_specific files.
 
 Their full-reference WER is therefore mostly deletions of content the
 automatic pipeline never had a chance to get right or wrong, and isn't
-comparable to the rest. To still give a rough read on transcription
-quality itself (what a reviewer asking "how good is the transcription"
-actually wants), `wer_first_n_words` scores each automatic transcript
-against just the first `automatic_words` words of the human reference
--- an approximation, not a true aligned match to the covered span
-(the automatic transcript is a start+end splice, not a strict prefix),
-but close enough to be informative and clearly labeled as such rather
-than silently presented as equivalent to the full-reference WER.
+comparable to the rest. `wer_matched_span` instead scores each against
+a reconstructed reference: the human text up to where the automatic
+transcript's first segment ends, spliced with the human text spanning
+its second segment -- both boundaries located by anchor phrases (see
+MANUALLY_VERIFIED_SPANS) identified by manually reading each pair of
+transcripts side by side. This isolates transcription quality on the
+content the automatic pipeline actually attempted, separate from the
+splitting step's data loss, and comes out much closer to the rest of
+the cohort (0.30-0.44) than the naive full-reference WER (0.92-0.97)
+suggested.
+MANUALLY_VERIFIED_SPANS is specific to these 3 subjects' known failure
+pattern (one dropped middle section) and won't generalize to a
+differently-broken transcript.
 
 The human reference has "[uncomprehensive word]"/"[uncomprehensive
 phrase]" markers (audio the transcriber couldn't make out) stripped
@@ -42,6 +55,7 @@ in at least one observed case, where Whisper transcribed audio the
 human transcriber could not), it is counted as an insertion error even
 though the automatic transcript was arguably correct there.
 """
+import re
 import sys
 from pathlib import Path
 
@@ -52,6 +66,57 @@ import jiwer
 import pandas as pd
 
 WORD_COUNT_RATIO_THRESHOLD = 0.5  # flag if automatic/human word-count ratio is outside [threshold, 1/threshold]
+
+# For the 3 flagged subjects: phrases (found verbatim, case/punctuation-insensitive,
+# in both the automatic and human transcripts) marking where the automatic
+# transcript's two segments start/end within the *human* reference.
+MANUALLY_VERIFIED_SPANS = {
+    "1221_CLBP": {
+        "start_anchor": "what would be the other part",
+        "end_start_anchor": "recent event the most recent event",
+        "end_tail_anchor": "homeschooled our two daughters",
+    },
+    "1241_CLBP": {
+        "start_anchor": "two adult children no grandchildren yet",
+        "end_start_anchor": "so it was it was a it's always a fun time",
+        "end_tail_anchor": "getting together with my wife's family",
+    },
+    "1406_MDD": {
+        "start_anchor": "investigations and did executive security protection",
+        "end_start_anchor": "the recent event i would probably say on friday",
+        "end_tail_anchor": "do that every friday",
+    },
+}
+
+
+def _normalize_word(word: str) -> str:
+    word = word.lower().replace("’", "'").replace("‘", "'")
+    return re.sub(r"[^a-z0-9']", "", word)
+
+
+def _find_word_seq(words_norm: list, anchor_norm: list, start_from: int = 0) -> int:
+    n = len(anchor_norm)
+    for i in range(start_from, len(words_norm) - n + 1):
+        if words_norm[i:i + n] == anchor_norm:
+            return i
+    return -1
+
+
+def build_matched_span_reference(human_text: str, spans: dict) -> str:
+    """Splice the human reference to match the automatic transcript's two
+    (start, end) segments, per MANUALLY_VERIFIED_SPANS anchors."""
+    words = human_text.split()
+    words_norm = [_normalize_word(w) for w in words]
+
+    start_idx = _find_word_seq(words_norm, spans["start_anchor"].split())
+    start_end = start_idx + len(spans["start_anchor"].split())
+
+    end_start = _find_word_seq(words_norm, spans["end_start_anchor"].split(), start_from=start_end)
+    tail_words = spans["end_tail_anchor"].split()
+    tail_idx = _find_word_seq(words_norm, tail_words, start_from=end_start)
+    end_end = tail_idx + len(tail_words)
+
+    return " ".join(words[0:start_end] + words[end_start:end_end])
 
 
 def compute_wer() -> pd.DataFrame:
@@ -65,20 +130,23 @@ def compute_wer() -> pd.DataFrame:
 
         reference = human_path.read_text(encoding="utf-8")
         hypothesis = common_path.read_text(encoding="utf-8")
-        reference_words = reference.split()
-        human_words, automatic_words = len(reference_words), len(hypothesis.split())
+        human_words, automatic_words = len(reference.split()), len(hypothesis.split())
         word_ratio = automatic_words / human_words
+        flagged = not (WORD_COUNT_RATIO_THRESHOLD <= word_ratio <= 1 / WORD_COUNT_RATIO_THRESHOLD)
 
-        reference_first_n = " ".join(reference_words[:automatic_words])
+        wer_matched_span = None
+        if flagged and f"{study_id}_{dx}" in MANUALLY_VERIFIED_SPANS:
+            matched_ref = build_matched_span_reference(reference, MANUALLY_VERIFIED_SPANS[f"{study_id}_{dx}"])
+            wer_matched_span = jiwer.wer(matched_ref, hypothesis)
 
         rows.append({
             "study_id": study_id,
             "dx": dx,
             "wer": jiwer.wer(reference, hypothesis),
-            "wer_first_n_words": jiwer.wer(reference_first_n, hypothesis),
+            "wer_matched_span": wer_matched_span,
             "human_words": human_words,
             "automatic_words": automatic_words,
-            "flagged": not (WORD_COUNT_RATIO_THRESHOLD <= word_ratio <= 1 / WORD_COUNT_RATIO_THRESHOLD),
+            "flagged": flagged,
         })
 
     df = pd.DataFrame(rows)
@@ -90,8 +158,8 @@ def compute_wer() -> pd.DataFrame:
     print(df.to_string(index=False))
     print(f"\nClean subjects (n={len(clean)}): Mean WER: {clean['wer'].mean():.3f}  |  Median WER: {clean['wer'].median():.3f}")
     if len(flagged):
-        print(f"\n{len(flagged)} subject(s) flagged (automatic transcript missing content, see module docstring): {flagged['study_id'].tolist()}")
-        print(f"Their wer_first_n_words (approximate, see docstring): {dict(zip(flagged['study_id'], flagged['wer_first_n_words'].round(3)))}")
+        print(f"\n{len(flagged)} subject(s) flagged (transcript-splitting step dropped content, see module docstring): {flagged['study_id'].tolist()}")
+        print(f"Their wer_matched_span (isolates transcription quality from the data loss): {dict(zip(flagged['study_id'], flagged['wer_matched_span'].round(3)))}")
     print(f"\nSaved -> {WER_BY_SUBJECT_CSV}")
     return df
 
