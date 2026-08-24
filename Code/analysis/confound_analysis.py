@@ -26,7 +26,7 @@ import scipy.stats as stats
 from statsmodels.stats.multitest import multipletests
 
 COHORTS = ["HC", "CLBP", "MDD"]
-COHORT_COLOR = {"HC": "#70B870", "CLBP": "#E07070", "MDD": "#7090D0"}
+COHORT_COLOR = {"CLBP": "#aec7e8", "MDD": "#ffbb78", "HC": "#98df8a"}  # matches boxplots.py
 
 LLM_METRICS = [
     "Narrative_Fragmentation", "Agency_Deficit",

@@ -12,6 +12,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from mds_analysis import compute_mds_projection
 from keyword_counts import count_keywords_all_subjects
+from boxplots import PASTEL_COLORS
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from config import FIGURES_DIR
@@ -34,7 +35,7 @@ def make_figure():
     sns.set_context("talk")
     fig, axes = plt.subplots(1, 2, figsize=(18, 7))
 
-    sns.scatterplot(data=mds_df, x="MDS1", y="MDS2", hue="dx", s=80, alpha=0.7, ax=axes[0])
+    sns.scatterplot(data=mds_df, x="MDS1", y="MDS2", hue="dx", palette=PASTEL_COLORS, s=80, alpha=0.7, ax=axes[0])
     axes[0].set_title("MDS (multidimensional scaling) colored by Cohort", fontsize=14, fontweight="bold")
     axes[0].set_xlabel("MDS1", fontsize=13)
     axes[0].set_ylabel("MDS2", fontsize=13)
@@ -43,7 +44,7 @@ def make_figure():
     axes[0].text(-0.12, 1.05, "A", transform=axes[0].transAxes, fontsize=16, fontweight="bold")
 
     sns.scatterplot(data=kw_df, x="pain_count_jitter", y="depression_count_jitter",
-                     hue="dx", s=100, alpha=0.7, ax=axes[1])
+                     hue="dx", palette=PASTEL_COLORS, s=100, alpha=0.7, ax=axes[1])
     axes[1].set_title("Depression Count vs Pain Count by Cohort", fontsize=14, fontweight="bold")
     axes[1].set_xlabel("Pain Count", fontsize=13)
     axes[1].set_ylabel("Depression Count", fontsize=13)

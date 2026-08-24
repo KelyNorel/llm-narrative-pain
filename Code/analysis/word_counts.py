@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 COHORT_ORDER = ["CLBP", "MDD", "HC"]
-COHORT_COLORS = {"CLBP": "tab:blue", "MDD": "tab:orange", "HC": "tab:green"}
+COHORT_COLORS = {"CLBP": "#aec7e8", "MDD": "#ffbb78", "HC": "#98df8a"}  # matches boxplots.py
 
 
 def count_words_and_chars(transcripts_dir: Path = TRANSCRIPTS_DIR / "common") -> pd.DataFrame:
