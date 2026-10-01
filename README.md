@@ -1,6 +1,6 @@
 # LLM Narrative Pain
 
-Code to reproduce the analyses from *"Naturalistic Narrative Analysis Captures Validated, Novel Psychological Constructs in Chronic Pain"* (Norel, Zhang, Gewandter, Naddour, Abdallah, Duan, Cecchi, Geha).
+Code to reproduce the analyses from *"LLM-derived Narrative Metrics in Chronic Pain: Convergent Validity and Novel Cognitive Constructs"* (Norel, Zhang, Gewandter, Naddour, Abdallah, Duan, Cecchi, Geha).
 
 Chronic low-back pain (CLBP), major depressive disorder (MDD), and pain-free healthy control (HC) participants completed semi-structured interviews. Interviews were transcribed and scored by an LLM (Llama-3-405B-Instruct, accessed through IBM watsonx) on nine clinical/psychological metrics, which were then compared against validated questionnaires.
 
